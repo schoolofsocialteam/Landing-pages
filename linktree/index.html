@@ -126,6 +126,10 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
 .steps i{flex:1;height:4px;border-radius:2px;background:var(--rule)}
 .steps i.on{background:var(--cobalt)}
 .fine{font-size:12px;color:var(--muted)}
+[hidden]{display:none!important}
+.tip{background:var(--white);border-radius:12px;padding:10px 12px}
+select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
+.done a.solid{display:block}
 
 /* analytics */
 .stats{display:flex;flex-direction:column;gap:8px}
@@ -190,9 +194,9 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
   </section>
 
   <div class="links">
-    <button class="lnk lead" type="button" data-sheet="apply" data-name="Work directly with Arturo">Work directly with Arturo <span class="sub">1:1 coaching · Apply in 2 min</span></button>
-    <button class="lnk" type="button" data-sheet="book" data-name="Book a consultation">Book a one-time consultation <span class="sub">60 min · $250</span></button>
-    <a class="lnk" href="#" data-go="skool.com/skool-of-social" data-name="Skool community">Join the Skool community <span class="sub">Free · Weekly templates and prompts</span></a>
+    <a class="lnk lead" href="#" data-go="skool.com/skool-of-social/about" data-name="Skool community">Join the Skool community <span class="sub">Founding member spots for the first 100</span></a>
+    <button class="lnk" type="button" data-sheet="book" data-name="Book a consultation">Book a one-time consultation <span class="sub">60 min, 1:1 on video</span></button>
+    <button class="lnk" type="button" data-sheet="apply" data-name="Work directly with Arturo">Work directly with Arturo <span class="sub">1:1 coaching · Apply in 2 min</span></button>
   </div>
 
   <nav class="socials" aria-label="Social profiles">
@@ -212,7 +216,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
   <button class="x" type="button" data-close aria-label="Close">&times;</button>
   <div class="in">
     <div class="grab"></div>
-    <div class="steps" id="applySteps"><i class="on"></i><i></i><i></i></div>
+    <div class="steps" id="applySteps"><i class="on"></i><i></i><i></i><i></i></div>
     <div id="applyBody"></div>
   </div>
 </div>
@@ -282,77 +286,101 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
 
   function chipGroup(root,multi){$$('.chip',root).forEach(function(c){c.addEventListener('click',function(){if(!multi)$$('.chip',root).forEach(function(o){o.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')})})}
 
-  // --- apply flow (3 steps)
+  // --- shared helpers
+  var ABOUT='skool.com/skool-of-social/about';
+  var DAYS=[['Tue',10],['Wed',11],['Thu',12],['Mon',16],['Tue',17]];
+  var TIMES=['9:00 am','10:30 am','12:00 pm','2:00 pm','3:30 pm','5:00 pm'];
+  var CHECK='<div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div>';
+  function sel(id,label,opts){return '<label class="f" for="'+id+'">'+label+'<select id="'+id+'" required><option value="" disabled selected>Choose one</option>'+opts.map(function(o,i){return '<option value="'+i+'">'+o+'</option>'}).join('')+'</select></label>'}
+  function picker(root,state,onReady){
+    root.innerHTML='<div class="days">'+DAYS.map(function(d,i){return '<button type="button" class="day" aria-pressed="'+(i===state.d)+'" data-i="'+i+'">'+d[0]+'<b>'+d[1]+'</b></button>'}).join('')+'</div><div class="times"></div>';
+    var times=$('.times',root);
+    function rt(){
+      times.innerHTML=TIMES.map(function(t,i){var off=((i+state.d)%4===1);return '<button type="button" class="time" '+(off?'disabled':'')+' aria-pressed="'+(state.t===i)+'" data-i="'+i+'">'+t+'</button>'}).join('');
+      $$('.time',times).forEach(function(el){el.addEventListener('click',function(){state.t=+el.dataset.i;rt();onReady(true)})});
+    }
+    $$('.day',root).forEach(function(el){el.addEventListener('click',function(){state.d=+el.dataset.i;state.t=null;$$('.day',root).forEach(function(o){o.setAttribute('aria-pressed',o===el)});onReady(false);rt()})});
+    rt();
+  }
+  function when(s){var d=DAYS[s.d];return d[0]+', Nov '+d[1]+' at '+TIMES[s.t]}
+  function enable(btn,on){btn.disabled=!on;btn.style.opacity=on?1:.5}
+
+  // --- apply flow
   var app={};
-  function steps(n){$$('#applySteps i').forEach(function(i,k){i.classList.toggle('on',k<=n)})}
+  var INVEST=['Under $100','$100 to $500','$500 to $1,000','$1,000 to $2,000','$2,000 to $3,000','$3,000 to $5,000','$5,000+'];
+  var TIMELINE=['Ready now','Within 30 days','1 to 3 months','Just exploring'];
+  function steps(n){$$('#applySteps i').forEach(function(i,k){i.classList.toggle('on',k<=n)});$('#applySteps').hidden=n>3}
+  function nav(back){return '<div style="display:flex;gap:8px">'+(back!=null?'<button class="ghost" type="button" data-back="'+back+'">Back</button>':'')+'<button class="solid" type="submit" style="flex:1">'+(back===2?'Submit application':'Next')+'</button></div>'}
+  function wire(id,next){var f=$('#'+id);f.addEventListener('submit',function(e){e.preventDefault();next()});var b=$('[data-back]',f);if(b)b.addEventListener('click',function(){applyStep(+b.dataset.back)})}
   function applyStep(n){
     steps(n);var b=$('#applyBody');
     if(n===0){
-      b.innerHTML='<form id="a0"><span class="eyebrow">Step 1 of 3 / About you</span><h2 id="applyT">Work directly with Arturo.</h2><p>A few quick questions so I know if we are a good fit. I read every one.</p>'+
+      app={};
+      b.innerHTML='<form id="a0"><span class="eyebrow">Step 1 of 4 / About you</span><h2 id="applyT">Work directly with Arturo.</h2><p>A few quick questions so we only book calls that make sense for you.</p>'+
       '<label class="f" for="aName">Your name<input id="aName" required autocomplete="name" value="Jordan Rivera"></label>'+
       '<label class="f" for="aEmail">Email<input id="aEmail" type="email" required autocomplete="email" value="jordan@example.com"></label>'+
-      '<label class="f" for="aHandle">Main account (link or @handle)<input id="aHandle" value="@jordanmakes"></label>'+
-      '<button class="solid" type="submit">Next</button></form>';
-      $('#a0').addEventListener('submit',function(e){e.preventDefault();app.name=$('#aName').value.split(' ')[0];applyStep(1)});
+      '<label class="f" for="aHandle">Main account (link or @handle)<input id="aHandle" required value="@jordanmakes"></label>'+nav(null)+'</form>';
+      wire('a0',function(){app.name=$('#aName').value.split(' ')[0];applyStep(1)});
     } else if(n===1){
-      b.innerHTML='<form id="a1"><span class="eyebrow">Step 2 of 3 / Where you are</span><h2>What is the goal?</h2>'+
-      '<div class="f" style="font-size:13px;font-weight:600">I want to...</div><div class="chips" id="goal"><button type="button" class="chip" aria-pressed="true">Grow my audience</button><button type="button" class="chip" aria-pressed="false">Get clients from content</button><button type="button" class="chip" aria-pressed="false">Post consistently</button><button type="button" class="chip" aria-pressed="false">Build a team system</button></div>'+
-      '<label class="f" for="aStage">Where are you now?<select id="aStage"><option>Just starting (under 1K)</option><option selected>Growing (1K to 10K)</option><option>Established (10K to 100K)</option><option>Big account (100K+)</option></select></label>'+
-      '<label class="f" for="aBlock">What is the biggest thing in your way?<textarea id="aBlock" rows="3">I post for a few weeks, then fall off. No system.</textarea></label>'+
-      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="back1">Back</button><button class="solid" type="submit" style="flex:1">Next</button></div></form>';
-      chipGroup($('#goal'),true);
-      $('#back1').addEventListener('click',function(){applyStep(0)});
-      $('#a1').addEventListener('submit',function(e){e.preventDefault();applyStep(2)});
+      b.innerHTML='<form id="a1"><span class="eyebrow">Step 2 of 4 / Where you are</span><h2>Tell me about you.</h2>'+
+      sel('aRole','Which best describes you?',['Creator or personal brand','Business owner','Agency or freelancer','Marketing or content team','Other'])+
+      sel('aSize','Total audience across platforms',['Under 1K','1K to 10K','10K to 50K','50K to 100K','100K to 500K','500K+'])+nav(0)+'</form>';
+      wire('a1',function(){applyStep(2)});
     } else if(n===2){
-      b.innerHTML='<form id="a2"><span class="eyebrow">Step 3 of 3 / Fit</span><h2>Ready to invest?</h2><p>1:1 coaching starts at $1,500/month for 12 weeks.</p>'+
-      '<div class="chips" id="budget"><button type="button" class="chip" aria-pressed="false">Yes, ready now</button><button type="button" class="chip" aria-pressed="true">Yes, in 1 to 3 months</button><button type="button" class="chip" aria-pressed="false">Not yet</button></div>'+
-      '<label class="f" for="aMore">Anything else I should know? (optional)<textarea id="aMore" rows="2"></textarea></label>'+
-      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="back2">Back</button><button class="solid" type="submit" style="flex:1">Send application</button></div>'+
-      '<span class="fine">Mockup: nothing is sent.</span></form>';
-      chipGroup($('#budget'),false);
-      $('#back2').addEventListener('click',function(){applyStep(1)});
-      $('#a2').addEventListener('submit',function(e){e.preventDefault();applyStep(3)});
+      b.innerHTML='<form id="a2"><span class="eyebrow">Step 3 of 4 / The goal</span><h2>What do you want to fix?</h2>'+
+      sel('aGoal','Main goal for the next 90 days',['Grow my audience','Get clients or leads from content','Post consistently','Build a content system for my team','Launch a channel from scratch'])+
+      '<label class="f" for="aBlock">What is the biggest thing in your way?<textarea id="aBlock" rows="3" required>I post for a few weeks, then fall off. No system.</textarea></label>'+nav(1)+'</form>';
+      wire('a2',function(){applyStep(3)});
+    } else if(n===3){
+      b.innerHTML='<form id="a3"><span class="eyebrow">Step 4 of 4 / Fit</span><h2>Timing and investment.</h2>'+
+      sel('aTime','When do you want to start?',TIMELINE)+
+      sel('aInv','How much are you ready to invest per month in growing your brand on social?',INVEST)+
+      '<p class="fine tip">Mockup tip: pick $2,000+ and any timeline except "Just exploring" to see the qualified path.</p>'+
+      nav(2).replace('data-back="2"','data-back="2"')+'</form>';
+      wire('a3',function(){app.inv=+$('#aInv').value;app.time=+$('#aTime').value;applyStep(app.inv>=4&&app.time<3?5:4)});
+    } else if(n===4){
+      b.innerHTML='<div class="done">'+CHECK+'<span class="eyebrow">Thanks, '+app.name+'</span><h2>Start with the community.</h2><p>Based on your answers, the best next step right now is the Skool community. It is where I share the systems I use with 1:1 clients, and founding members get in at a special rate.</p><a class="solid" href="#" id="toComm" style="text-align:center">See the community</a><span class="fine">Mockup: nothing was sent. Your answers would still be saved so you can track budgets over time.</span></div>';
+      $('#toComm').addEventListener('click',function(e){e.preventDefault();track('Skool community');toast('Would open <code>'+ABOUT+'</code>')});
+    } else if(n===5){
+      var st={d:1,t:null};
+      b.innerHTML='<div class="in" style="gap:16px"><span class="eyebrow">You look like a great fit</span><h2>Book your discovery call.</h2><p>30 min, free. We go over your goals and see if 1:1 coaching makes sense. Times in Pacific.</p><div id="callPick"></div><button class="solid" type="button" id="callGo">Confirm call</button></div>';
+      var go=$('#callGo');enable(go,false);
+      picker($('#callPick'),st,function(ok){enable(go,ok)});
+      go.addEventListener('click',function(){app.when=when(st);applyStep(6)});
     } else {
-      b.innerHTML='<div class="done"><div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><span class="eyebrow">Application received</span><h2>Thanks, '+(app.name||'friend')+'.</h2><p>I review applications every Monday. If it looks like a fit, you will get an email from me with a link to book an intro call.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: no application was sent.</span></div>';
+      b.innerHTML='<div class="done">'+CHECK+'<span class="eyebrow">Call booked</span><h2>Talk soon, '+app.name+'.</h2><p>'+app.when+' Pacific. A calendar invite and video link would land in your inbox.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: nothing was booked.</span></div>';
       $('[data-close]',b).addEventListener('click',hide);
     }
   }
 
-  // --- booking flow
+  // --- consultation flow (price only at checkout)
   var bk={};
-  var DAYS=[['Tue',11],['Wed',12],['Thu',13],['Mon',17],['Tue',18]];
-  var TIMES=['9:00 am','10:30 am','12:00 pm','2:00 pm','3:30 pm','5:00 pm'];
   function bookStep(n){
     var b=$('#bookBody');
     if(n===0){
       bk={d:2,t:null};
-      b.innerHTML='<div class="grab"></div><span class="eyebrow">One-time consultation / 60 min</span><h2 id="bookT">Pick a time.</h2><p>Times in Pacific (Vancouver). November 2026.</p>'+
-      '<div class="days" id="days">'+DAYS.map(function(d,i){return '<button type="button" class="day" aria-pressed="'+(i===bk.d)+'" data-i="'+i+'">'+d[0]+'<b>'+d[1]+'</b></button>'}).join('')+'</div>'+
-      '<div class="times" id="times"></div>'+
-      '<div class="sum"><span>60 min video call</span><b>$250 USD</b></div>'+
-      '<button class="solid" type="button" id="toPay" disabled style="opacity:.5">Continue</button>';
-      function renderTimes(){
-        $('#times').innerHTML=TIMES.map(function(t,i){var off=((i+bk.d)%4===1);return '<button type="button" class="time" '+(off?'disabled':'')+' aria-pressed="'+(bk.t===i)+'" data-i="'+i+'">'+t+'</button>'}).join('');
-        $$('#times .time').forEach(function(el){el.addEventListener('click',function(){bk.t=+el.dataset.i;renderTimes();var c=$('#toPay');c.disabled=false;c.style.opacity=1})});
-      }
-      $$('#days .day').forEach(function(el){el.addEventListener('click',function(){bk.d=+el.dataset.i;bk.t=null;$$('#days .day').forEach(function(o){o.setAttribute('aria-pressed',o===el)});var c=$('#toPay');c.disabled=true;c.style.opacity=.5;renderTimes()})});
-      renderTimes();
-      $('#toPay').addEventListener('click',function(){bookStep(1)});
+      b.innerHTML='<div class="grab"></div><span class="eyebrow">One-time consultation / 60 min</span><h2 id="bookT">Pick a time.</h2><p>Times in Pacific (Vancouver). November 2026.</p><div id="bkPick"></div><button class="solid" type="button" id="bkGo">Continue</button>';
+      var go=$('#bkGo');enable(go,false);
+      picker($('#bkPick'),bk,function(ok){enable(go,ok)});
+      go.addEventListener('click',function(){bookStep(1)});
     } else if(n===1){
-      var d=DAYS[bk.d];
-      b.innerHTML='<div class="grab"></div><span class="eyebrow">Confirm and pay</span><h2>'+d[0]+', Nov '+d[1]+' at '+TIMES[bk.t]+'.</h2>'+
-      '<form id="pay"><label class="f" for="bName">Name<input id="bName" required autocomplete="name" value="Jordan Rivera"></label>'+
+      b.innerHTML='<div class="grab"></div><span class="eyebrow">Your details</span><h2>'+when(bk)+'.</h2>'+
+      '<form id="det"><label class="f" for="bName">Name<input id="bName" required autocomplete="name" value="Jordan Rivera"></label>'+
       '<label class="f" for="bEmail">Email<input id="bEmail" type="email" required autocomplete="email" value="jordan@example.com"></label>'+
       '<label class="f" for="bTopic">What do you want to cover?<textarea id="bTopic" rows="2">Audit my last 20 posts and help me plan next month.</textarea></label>'+
-      '<label class="f" for="bCard">Card (sample checkout)<input id="bCard" inputmode="numeric" value="4242 4242 4242 4242"></label>'+
-      '<div class="sum"><span>Total</span><b>$250 USD</b></div>'+
-      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="bBack">Back</button><button class="solid" type="submit" style="flex:1">Pay and book</button></div>'+
-      '<span class="fine">Mockup: no payment is taken. The real version would use Stripe through Cal.com or Calendly.</span></form>';
+      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="bBack">Back</button><button class="solid" type="submit" style="flex:1">Continue to checkout</button></div></form>';
       $('#bBack').addEventListener('click',function(){var keep=bk;bookStep(0);bk=keep});
-      $('#pay').addEventListener('submit',function(e){e.preventDefault();bk.name=$('#bName').value.split(' ')[0];bookStep(2)});
+      $('#det').addEventListener('submit',function(e){e.preventDefault();bk.name=$('#bName').value.split(' ')[0];bookStep(2)});
+    } else if(n===2){
+      b.innerHTML='<div class="grab"></div><span class="eyebrow">Checkout</span><h2>Confirm and pay.</h2>'+
+      '<div class="sum" style="flex-direction:column;gap:4px"><span style="display:flex;justify-content:space-between"><span>One-time consultation, 60 min</span><b>$549 USD</b></span><span class="fine" style="color:var(--charcoal)">'+when(bk)+' Pacific</span></div>'+
+      '<form id="pay"><label class="f" for="bCard">Card (sample checkout)<input id="bCard" inputmode="numeric" value="4242 4242 4242 4242"></label>'+
+      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="pBack">Back</button><button class="solid" type="submit" style="flex:1">Pay $549 and book</button></div>'+
+      '<span class="fine">Mockup: no payment is taken. The real version uses Cal.com with Stripe.</span></form>';
+      $('#pBack').addEventListener('click',function(){bookStep(1)});
+      $('#pay').addEventListener('submit',function(e){e.preventDefault();bookStep(3)});
     } else {
-      var d2=DAYS[bk.d];
-      b.innerHTML='<div class="grab"></div><div class="done"><div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><span class="eyebrow">You are booked</span><h2>See you '+d2[0]+', Nov '+d2[1]+'.</h2><p>'+TIMES[bk.t]+' Pacific. A calendar invite and video link would land in your inbox.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: nothing was booked.</span></div>';
+      b.innerHTML='<div class="grab"></div><div class="done">'+CHECK+'<span class="eyebrow">You are booked</span><h2>See you '+DAYS[bk.d][0]+', Nov '+DAYS[bk.d][1]+'.</h2><p>'+TIMES[bk.t]+' Pacific. A receipt, calendar invite and video link would land in your inbox.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: nothing was booked.</span></div>';
       $('[data-close]',b).addEventListener('click',hide);
     }
   }
