@@ -1,0 +1,400 @@
+<title>Skool of Social Links</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=IBM+Plex+Mono:wght@500&family=Caveat:wght@600&display=swap">
+<style>
+/* Layout: one phone-width column on paper. Hero with portrait on a highlight disc, cobalt lead offer, white cards, charcoal footer. Deliberately single light theme (brand is paper-first). */
+:root{
+  --paper:#FAF9F6; --charcoal:#222222; --cobalt:#1E4EDB; --highlight:#FFF3A4; --white:#FFFFFF;
+  --muted:#5B5D66; --rule:#E7E4DC;
+  --display:"Inter","Inter Display",system-ui,-apple-system,sans-serif;
+  --sans:"Inter",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
+  --hand:"Caveat","Marker Felt","Comic Sans MS",cursive;
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{background:var(--paper)}
+body{background:var(--paper);color:var(--charcoal);font-family:var(--sans);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--cobalt);outline-offset:3px;border-radius:12px}
+
+.mockbar{background:var(--charcoal);color:var(--white);font-family:var(--mono);font-size:11px;letter-spacing:1px;text-transform:uppercase;padding-block:8px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;gap:12px;align-items:center}
+.mockbar span:last-child{color:var(--highlight)}
+
+.page{max-width:460px;margin:0 auto;padding-block:20px 40px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:28px}
+
+.top{display:flex;justify-content:space-between;align-items:center}
+.top .logo svg{display:block;width:150px;height:auto}
+.share{border:0;background:var(--white);border-radius:999px;padding:8px 14px;font-size:13px;font-weight:600;cursor:pointer;display:flex;gap:6px;align-items:center}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:14px}
+.portrait{position:relative;width:132px;height:132px}
+.portrait .disc{position:absolute;inset:0;border-radius:50%;background:var(--highlight)}
+.portrait .ph{position:absolute;inset:10px 10px 0;border-radius:0 0 60px 60px;overflow:hidden;display:flex;align-items:flex-end;justify-content:center}
+.portrait .ph svg{width:100%;height:auto}
+.portrait .note{position:absolute;left:142px;top:22px;font-family:var(--hand);color:var(--cobalt);font-size:22px;transform:rotate(-8deg);white-space:nowrap;line-height:1}
+.portrait .note svg{display:block;width:44px;margin:2px 0 0 -10px;transform:scaleX(-1) rotate(20deg)}
+.eyebrow{font-size:12px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--cobalt)}
+h1{font-family:var(--display);font-size:38px;line-height:1.05;font-weight:800;letter-spacing:-0.02em;margin:0;text-wrap:balance}
+.hl{position:relative;white-space:nowrap;z-index:0}
+.hl::after{content:"";position:absolute;left:-4%;right:-4%;bottom:-2px;height:.42em;background:url("data:image/svg+xml;utf8,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%2268.000%22 height=%2226.000%22 preserveAspectRatio=%22none%22 viewBox=%22-1.000 -1.000 68.000 26.000%22%3E%3Cpath id=%22artwork-1%22 d=%22M 18.996,19.992 C 15.678,20.417 12.314,20.629 9.009,20.689 C 8.019,20.707 7.035,20.712 5.991,20.672 C 5.294,20.646 4.570,20.600 3.970,20.354 C 3.362,20.104 2.883,19.649 2.636,19.057 C 2.389,18.465 2.377,17.735 2.343,17.016 C 2.295,15.958 2.201,14.922 2.369,13.978 C 2.478,13.360 2.700,12.782 3.039,12.244 C 3.311,11.813 3.657,11.408 3.968,10.948 C 4.333,10.407 4.648,9.790 5.068,9.379 C 6.030,8.440 7.543,8.585 8.987,8.581 C 10.367,8.577 11.683,8.437 13.007,8.298 C 18.938,7.679 25.013,7.097 30.999,6.132 C 33.671,5.701 36.326,5.194 39.010,4.904 C 41.992,4.581 45.011,4.526 48.011,4.329 C 49.348,4.240 50.681,4.124 51.984,3.822 C 53.325,3.510 54.634,3.002 56.003,2.931 C 58.341,2.809 60.853,3.962 61.886,6.022 C 63.150,8.544 62.194,12.427 59.896,13.816 C 58.797,14.480 57.391,14.573 56.023,14.840 C 55.009,15.039 54.016,15.332 53.013,15.550 C 50.045,16.194 46.989,16.170 43.990,16.533 C 41.301,16.858 38.657,17.493 35.978,17.905 C 32.677,18.414 29.324,18.586 26.008,18.995 C 23.666,19.284 21.343,19.692 18.996,19.992 Z%22 fill=%22%23FFF3A4%22 fill-rule=%22evenodd%22%3E%3C/path%3E%3C/svg%3E") center/100% 100% no-repeat;z-index:-1}
+.bio{margin:0;color:var(--muted);font-size:16px;max-width:36ch}
+
+.socials{display:flex;gap:10px;flex-wrap:wrap}
+.socials a{width:48px;height:48px;border-radius:50%;background:var(--white);display:grid;place-items:center;transition:transform .15s}
+.socials a:hover{transform:translateY(-2px)}
+.socials svg{width:22px;height:22px;color:var(--charcoal)}
+
+/* sections */
+.section{display:flex;flex-direction:column;gap:12px}
+.label{font-family:var(--mono);font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
+
+.card{display:flex;flex-direction:column;gap:6px;background:var(--white);border-radius:24px;padding:22px;cursor:pointer;border:0;text-align:left;width:100%;transition:transform .15s}
+.card:hover{transform:translateY(-2px)}
+.card:active{transform:scale(.99)}
+.card .k{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--cobalt)}
+.card .t{font-family:var(--display);font-size:22px;font-weight:750;line-height:1.15;letter-spacing:-0.01em}
+.card .d{font-size:14.5px;color:var(--muted)}
+.card .row{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px;background:var(--cobalt);color:var(--white)}
+.price{font-family:var(--display);font-weight:800;font-size:20px}
+.price small{font-family:var(--sans);font-weight:500;font-size:13px;color:var(--muted)}
+
+.card.lead{background:var(--cobalt);color:var(--white)}
+.card.lead .k{color:var(--highlight)}
+.card.lead .d{color:rgba(255,255,255,.82)}
+.card.lead .pill{background:var(--white);color:var(--cobalt)}
+.badge{background:var(--highlight);color:var(--charcoal);font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;border-radius:999px;padding:4px 10px}
+
+.list{display:flex;flex-direction:column;background:var(--white);border-radius:24px;overflow:hidden}
+.list a{display:flex;align-items:center;gap:14px;padding:16px 20px;border-bottom:1px solid var(--rule)}
+.list a:last-child{border-bottom:0}
+.list a:hover{background:var(--paper)}
+.list .ic{width:36px;height:36px;border-radius:50%;background:var(--paper);display:grid;place-items:center;flex:none}
+.list .ic svg{width:18px;height:18px;color:var(--charcoal)}
+.list .nm{font-weight:600;flex:1;min-width:0}
+.list .nm small{display:block;font-weight:400;color:var(--muted);font-size:13px}
+.list .arr{color:var(--muted)}
+
+.email{background:var(--white);border-radius:24px;padding:20px;display:flex;flex-direction:column;gap:12px}
+.email .addr{font-family:var(--display);font-weight:700;font-size:19px;word-break:break-all;user-select:all}
+.email .btns{display:flex;gap:8px;flex-wrap:wrap}
+.ghost{border:1.5px solid var(--charcoal);background:transparent;border-radius:999px;padding:9px 16px;font-weight:600;font-size:14px;cursor:pointer}
+.solid{border:0;background:var(--cobalt);color:var(--white);border-radius:999px;padding:10px 18px;font-weight:700;font-size:14px;cursor:pointer}
+
+footer{background:var(--charcoal);color:var(--white);border-radius:24px;padding:22px;display:flex;flex-direction:column;gap:10px}
+footer svg{width:130px;height:auto}
+footer p{margin:0;font-size:13px;color:rgba(255,255,255,.7)}
+footer .motto{font-weight:700;font-size:16px;color:var(--white)}
+footer button{align-self:flex-start;background:transparent;border:1px solid rgba(255,255,255,.35);color:var(--white);border-radius:999px;padding:6px 12px;font-size:12px;cursor:pointer;font-family:var(--mono);letter-spacing:.5px}
+
+/* sheets */
+.scrim{position:fixed;inset:0;background:rgba(34,34,34,.45);z-index:40;opacity:0;transition:opacity .2s}
+.scrim.on{opacity:1}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--paper);border-radius:24px 24px 0 0;max-height:88vh;overflow-y:auto;transform:translateY(100%);transition:transform .28s cubic-bezier(.2,.8,.2,1);padding-block:10px calc(24px + env(safe-area-inset-bottom,0px));padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px))}
+.sheet.on{transform:none}
+.sheet .in{max-width:460px;margin:0 auto;display:flex;flex-direction:column;gap:16px}
+.grab{width:40px;height:4px;border-radius:2px;background:var(--rule);margin:0 auto 6px}
+.sheet h2{font-family:var(--display);font-size:26px;font-weight:800;line-height:1.1;margin:0;letter-spacing:-0.01em}
+.sheet p{margin:0;color:var(--muted)}
+.x{position:absolute;right:max(16px,env(safe-area-inset-right,0px));top:14px;border:0;background:var(--white);width:36px;height:36px;border-radius:50%;cursor:pointer;font-size:18px}
+form{display:flex;flex-direction:column;gap:12px}
+label.f{display:flex;flex-direction:column;gap:6px;font-size:13px;font-weight:600}
+input,select,textarea{font:inherit;font-weight:400;font-size:16px;border:1.5px solid var(--rule);background:var(--white);border-radius:14px;padding:12px 14px;color:var(--charcoal);width:100%}
+input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--rule);background:var(--white);border-radius:999px;padding:8px 14px;font-size:14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--cobalt);border-color:var(--cobalt);color:var(--white)}
+.days{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.day{border:1.5px solid var(--rule);background:var(--white);border-radius:14px;padding:10px 4px;text-align:center;cursor:pointer;font-size:12px;color:var(--muted)}
+.day b{display:block;font-size:18px;color:var(--charcoal);font-family:var(--display)}
+.day[aria-pressed="true"]{border-color:var(--cobalt);background:var(--cobalt);color:rgba(255,255,255,.8)}
+.day[aria-pressed="true"] b{color:var(--white)}
+.times{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.time{border:1.5px solid var(--rule);background:var(--white);border-radius:12px;padding:10px;cursor:pointer;font-weight:600;font-size:14px}
+.time[aria-pressed="true"]{border-color:var(--cobalt);color:var(--cobalt)}
+.time:disabled{opacity:.35;cursor:not-allowed;text-decoration:line-through}
+.sum{background:var(--highlight);border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;gap:12px;font-size:14px}
+.sum b{font-family:var(--display)}
+.done{display:flex;flex-direction:column;gap:12px;align-items:flex-start;padding-block:10px}
+.check{width:52px;height:52px;border-radius:50%;background:var(--cobalt);display:grid;place-items:center}
+.check svg{width:26px;fill:none;stroke:var(--white);stroke-width:3}
+.steps{display:flex;gap:6px;margin-right:48px}
+.steps i{flex:1;height:4px;border-radius:2px;background:var(--rule)}
+.steps i.on{background:var(--cobalt)}
+.fine{font-size:12px;color:var(--muted)}
+
+/* analytics */
+.stats{display:flex;flex-direction:column;gap:8px}
+.stat{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;font-size:14px}
+.stat .bar{grid-column:1/-1;height:8px;border-radius:4px;background:var(--rule);overflow:hidden}
+.stat .bar i{display:block;height:100%;background:var(--cobalt);border-radius:4px}
+.stat b{font-variant-numeric:tabular-nums}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140%);background:var(--charcoal);color:var(--white);border-radius:14px;padding:12px 16px;font-size:14px;z-index:60;max-width:calc(100% - 32px);transition:transform .25s,opacity .25s;opacity:0;pointer-events:none;box-shadow:0 8px 24px rgba(0,0,0,.18)}
+.toast.on{transform:translate(-50%,0);opacity:1}
+.toast code{font-family:var(--mono);color:var(--highlight);font-size:12px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<div class="mockbar"><span>Mockup / sample data</span><span>Links are fake</span></div>
+
+<main class="page">
+  <div class="top">
+    <a class="logo" href="#" aria-label="Skool of Social" data-go="skoolofsocial.com" data-name="Website"><svg role="img" aria-label="Skool of Social" xmlns="http://www.w3.org/2000/svg" viewBox="-7.560 -7.560 584.120 99.120">
+
+
+<path id="artwork-1" d="M 51.66845410679172,71.34093165965083 C 44.52481539377608,72.44985319235371 37.296675039933156,71.45663390632205 30.882350488519304,68.37947415496483 C 28.188698183993665,67.08724906292888 25.638048656252685,65.4271168269833 23.405905313168454,63.32887608397924 C 22.18388158428134,62.180953793971455 21.0567596981695,60.90172895437048 21.49746825571496,59.56140292832515 C 21.817274465615206,58.58768402094594 22.965196755622998,57.58276450772283 23.909015082401766,56.7429482004238 C 25.084237902522993,55.69902792989576 25.94485461371796,54.91251265758012 26.96667445510655,53.724289585023925 C 28.078196038296426,52.43336451823147 29.380821332280348,50.66663021231915 30.601545035923962,50.49242682969056 C 31.59996442292961,50.3507240781494 32.54378274970838,51.27504202627571 33.49280117746114,52.25656108511589 C 34.34301768670813,53.13407812447632 35.19713427168561,54.05969609784614 36.133152447003404,54.802010511882884 C 38.700702302909846,56.84305014417306 41.885764149477325,57.51646322030447 45.19302836893351,57.75306781462092 C 47.44337206542669,57.91297091957104 49.74961684739025,57.87137011177913 51.625553273756324,56.84305014417306 C 52.65387324136239,56.2788391884954 53.55219068461877,55.41822247730043 54.024099848008156,54.27680031351012 C 54.54670999589392,53.017075852561604 54.54931004638092,51.41544475257338 53.98379906545975,50.22982173050417 C 53.297385736893375,48.79589388692706 51.77895625248896,47.972977907793506 50.298227500145956,47.24496377143522 C 47.54217398393246,45.889037442467924 44.92132309304265,44.86071747486186 42.1483692486637,43.768696270324426 C 36.72986403376849,41.635354845745965 30.728947509786664,39.25630865014659 27.188978771744523,34.71402044936831 C 23.339604025750113,29.775224549323475 22.39968577470183,22.277978970076678 24.871033762589494,16.47076620737589 C 27.07717660080379,11.287565561553627 32.00167222317016,7.451191067994188 37.422777488552356,5.623355575637503 C 44.12180756829204,3.366511752926833 51.58005239023393,4.173827429138426 58.20368100585079,6.2733681973859685 C 60.98703505217772,7.154785312476887 63.62348624598949,8.265006870423267 66.13253496593856,10.22024483664265 C 67.51836187550629,11.300565813988598 68.86518802776911,12.636991764303444 68.59868285285225,13.826514862103133 C 68.4088791673017,14.67803139659362 67.3909594016436,15.45414646696129 66.48744185741323,16.36546416265264 C 64.21369770653709,18.662608767911713 62.67316779299324,21.821670109609254 60.37732321297765,22.71738750237864 C 59.69480996014176,22.983892677295508 58.94599541988753,23.050193964713852 58.20628105633778,22.74598805773557 C 57.75517229684435,22.558784422672012 57.307963613081405,22.23507813704128 56.85425480310097,21.915271927141035 C 55.62313089750938,21.048155089728585 54.35170620936938,20.22263906010803 53.003580031863066,19.66362820540435 C 51.34214777067399,18.973314801107485 49.565013262813686,18.688609272781655 47.778778578248904,18.545606495996992 C 46.151146973390745,18.414303946403802 44.51441519182811,18.398703643481838 42.9946856821802,19.081216896317727 C 41.50875682886321,19.74942987147515 40.132030095999966,21.083255771303 39.90582570363149,22.622485659603363 C 39.758922851116345,23.615704945635017 40.093029338695054,24.696025922980965 40.61823953706781,25.56704283612391 C 42.29397207593536,28.33739663001587 45.91844245480479,28.986109226520835 49.16200543732964,29.91302722513415 C 52.349667334384115,30.823044895582 55.16942208752895,32.00216779143372 58.11007918831901,33.363294221375 C 60.43452432369153,34.43841509774696 62.83307089794336,35.62663817030316 64.74020793015336,37.31407093636217 C 67.06595309076937,39.37071087157432 68.6597840392966,42.167065170336215 69.57500181071845,45.131122725509215 C 70.6033217783245,48.46308742459185 70.77102503473562,52.00435618787749 70.10541211006519,55.49882404239723 C 69.56330158352696,58.34197924992502 68.46738030325905,61.15393385160888 66.80724806731348,63.41857782578053 C 63.38298157594256,68.08566844993452 57.55366838410232,70.42701391347248 51.668454106791714,71.34093165965082 M 72.0,5.0 Q 72.0,4.4 73.0,4.4 L 86.0,4.4 Q 87.0,4.4 87.0,5.4 L 87.0,42.0 L 102.5,24.4 L 120.0,24.4 L 100.5,46.2 L 122.0,70.9 L 103.0,70.9 L 87.0,51.3 L 87.0,70.0 Q 87.0,71.0 86.0,71.0 L 73.0,71.0 Q 72.0,71.0 72.0,70.0 L 72.0,5.0 M 199.984,71.284 C 187.984,73.448 174.606,66.43 171.612,53.878 C 171.423,53.088 171.276,52.276 171.075,52.207 C 170.873,52.137 170.618,52.807 170.367,53.635 C 170.135,54.397 169.906,55.294 169.668,56.049 C 169.421,56.829 169.164,57.457 168.87,58.084 C 167.729,60.522 166.035,62.944 163.993,64.931 C 159.734,69.078 153.958,71.338 148.022,71.624 C 141.72,71.927 135.237,70.006 130.467,66.012 C 126.035,62.3 123.08099999999999,56.798 122.34299999999999,51.002 C 121.529,44.618 123.40100000000001,37.876 127.43299999999999,32.944 C 131.033,28.539 136.355,25.577 142.011,24.559 C 148.549,23.381 155.533,24.799 161.007,28.471 C 163.367,30.055 165.447,32.058 167.013,34.469 C 168.519,36.787 169.549,39.482 170.368,42.132 C 170.585,42.833 170.787,43.531 170.992,43.55 C 171.198,43.569 171.407,42.91 171.618,42.219 C 172.034,40.853 172.456,39.364 173.023,37.976 C 174.132,35.258 175.795,32.926 177.802,30.983 C 182.092,26.832 187.957,24.457 193.982,24.167 C 200.327,23.862 206.85,25.871 211.607,29.972 C 215.968,33.732 218.845,39.249 219.548,45.014 C 220.326,51.393 218.441,58.074 214.366,62.998 C 210.793,67.315 205.536,70.282 199.984,71.284 M 147.115,58.062 C 149.769,57.916 152.301,56.464 153.914,54.316 C 155.649,52.004 156.321,48.884 155.833,45.971 C 155.391,43.338 154.001,40.874 151.916,39.363 C 149.965,37.949 147.406,37.37 145.031,37.797 C 142.661,38.223 140.475,39.653 139.054,41.651 C 137.374,44.013 136.764,47.171 137.325,50.036 C 137.801,52.468 139.12,54.689 141.072,56.164 C 142.787,57.46 144.99,58.18 147.115,58.062 M 199.375,57.091 C 201.551,55.976 203.269,53.718 204.079,51.266 C 204.988,48.515 204.755,45.518 203.513,42.988 C 202.39,40.699 200.441,38.791 198.039,38.036 C 195.78,37.326 193.12,37.635 191.026,38.765 C 188.986,39.865 187.482,41.744 186.658,43.959 C 186.182,45.239 185.933,46.632 185.907,48.031 C 185.882,49.43 186.08,50.835 186.585,52.086 C 188.511,56.859 194.91,59.378 199.375,57.091 M 235.946,70.59 C 235.275,71.041 234.079,70.879 232.997,70.814 C 231.915,70.75 230.947,70.782 229.981,70.788 C 228.373,70.797 226.773,70.73 224.956,70.805 C 223.862,70.851 222.69,70.948 222.108,70.41 C 221.763,70.09 221.626,69.545 221.529,68.984 C 221.259,67.416 221.301,65.721 221.332,64.034 C 221.457,57.287 221.402,50.657 221.393,44.004 C 221.384,37.351 221.42,30.674 221.383,23.991 C 221.364,20.649 221.327,17.306 221.393,14.022 C 221.426,12.38 221.485,10.753 221.358,8.966 C 221.282,7.893 221.14,6.763 221.406,5.937 C 221.552,5.486 221.819,5.126 222.178,4.874 C 223.493,3.951 226.033,4.484 228.088,4.605 C 229.8,4.706 231.174,4.522 232.981,4.383 C 234.065,4.299 235.304,4.232 235.949,4.71 C 236.341,5.001 236.513,5.494 236.626,6.029 C 236.935,7.491 236.803,9.258 236.731,10.979 C 236.587,14.421 236.684,17.681 236.721,20.991 C 236.759,24.3 236.737,27.66 236.729,31.004 C 236.712,37.691 236.748,44.313 236.756,50.996 C 236.76,54.337 236.757,57.694 236.712,60.995 C 236.69,62.646 236.656,64.282 236.735,66.004 C 236.783,67.037 236.87,68.101 236.719,69.048 C 236.617,69.693 236.403,70.283 235.946,70.59 M 476.995,20.189 C 474.625,20.812 472.004,20.275 469.977,18.916 C 467.957,17.56 466.526,15.388 466.152,13.015 C 465.768,10.576 466.5,7.926 468.106,5.982 C 469.47,4.331 471.465,3.19 473.54,2.906 C 477.979,2.298 482.784,5.611 483.614,9.908 C 484.07,12.262 483.331,14.913 481.756,16.946 C 480.548,18.505 478.848,19.702 476.995,20.189 M 452.004,71.077 C 445.042,72.623 437.189,71.261 431.445,66.984 C 428.968,65.14 426.883,62.753 425.392,59.991 C 425.032,59.325 424.707,58.638 424.402,57.977 C 424.107,57.34 423.831,56.728 423.631,56.03 C 423.393,55.202 423.261,54.252 422.926,53.39 C 422.675,52.746 422.311,52.151 422.053,52.146 C 421.619,52.138 421.483,53.799 421.208,55.006 C 421.024,55.811 420.777,56.413 420.501,57.033 C 419.919,58.34 419.205,59.725 418.361,60.999 C 416.78,63.386 414.745,65.389 412.431,67.0 C 406.868,70.873 399.695,72.478 393.004,71.29 C 387.034,70.229 381.447,66.946 377.861,62.042 C 376.735,60.501 375.805,58.801 375.151,56.932 C 374.908,56.242 374.704,55.528 374.459,54.857 C 374.265,54.324 374.046,53.818 373.767,53.759 C 373.573,53.717 373.351,53.892 373.174,54.124 C 372.501,55.007 372.48,56.719 372.073,58.243 C 371.67,59.753 370.889,61.077 370.003,62.279 C 361.92,73.24 345.058,74.042 333.524,67.949 C 330.801,66.511 328.376,64.689 325.895,62.348 C 325.4,61.881 324.903,61.393 324.701,60.897 C 324.454,60.286 324.653,59.663 325.028,59.056 C 325.712,57.948 326.979,56.891 328.056,55.942 C 329.508,54.662 330.612,53.577 332.059,51.954 C 332.727,51.206 333.467,50.343 334.137,50.229 C 334.773,50.121 335.346,50.689 335.936,51.256 C 337.999,53.235 340.28,55.187 342.989,56.285 C 344.891,57.055 347.004,57.404 349.03,57.444 C 350.72,57.476 352.351,57.294 353.949,56.556 C 355.274,55.944 356.577,54.951 357.109,53.685 C 357.73,52.206 357.298,50.354 356.401,49.0 C 354.825,46.617 351.81,45.774 348.96,44.896 C 345.826,43.93 342.891,42.922 340.009,41.61 C 337.118,40.296 334.28,38.676 332.031,36.387 C 330.022,34.341 328.483,31.761 327.682,29.0 C 325.759,22.373 328.083,14.701 333.001,10.085 C 337.865,5.521 345.268,3.945 352.098,4.295 C 358.627,4.629 364.634,6.722 370.051,10.889 C 371.22,11.788 372.362,12.784 371.92,13.878 C 371.64,14.569 370.727,15.299 370.066,16.005 C 369.639,16.461 369.316,16.908 368.968,17.329 C 368.081,18.402 367.029,19.309 365.999,20.475 C 365.027,21.576 364.075,22.907 362.982,23.029 C 361.71,23.169 360.249,21.673 358.885,20.708 C 357.643,19.829 356.483,19.389 355.111,19.005 C 351.805,18.079 347.272,17.475 344.97,19.981 C 343.707,21.354 343.116,23.663 343.93,25.243 C 344.589,26.523 346.17,27.324 347.696,27.989 C 350.635,29.27 353.374,30.043 356.179,30.994 C 359.163,32.005 362.222,33.216 364.925,34.985 C 367.326,36.555 369.446,38.564 370.841,40.95 C 371.303,41.742 371.686,42.574 372.036,43.647 C 372.356,44.632 372.648,45.818 372.975,45.777 C 373.138,45.756 373.309,45.432 373.447,45.067 C 373.71,44.373 373.853,43.532 374.034,42.702 C 374.726,39.523 375.966,36.507 377.764,33.945 C 381.283,28.931 386.941,25.651 393.003,24.559 C 399.946,23.308 407.419,24.929 413.029,29.141 C 415.419,30.936 417.47,33.201 419.006,35.786 C 419.794,37.113 420.446,38.525 420.886,39.981 C 421.084,40.636 421.239,41.301 421.4,42.068 C 421.59,42.974 421.789,44.024 422.054,44.059 C 422.335,44.096 422.69,42.993 422.972,42.034 C 423.31,40.886 423.542,39.944 423.874,38.999 C 424.351,37.638 425.034,36.274 425.841,34.997 C 427.316,32.663 429.204,30.619 431.383,28.987 C 437.14,24.673 444.925,23.237 451.987,24.731 C 455.226,25.416 458.313,26.718 460.977,28.637 C 462.009,29.38 462.977,30.216 464.026,31.126 C 464.723,31.73 465.455,32.368 465.514,33.038 C 465.572,33.71 464.954,34.414 464.298,35.023 C 463.224,36.019 462.046,36.758 460.973,37.644 C 460.449,38.076 459.95,38.543 459.451,38.993 C 458.986,39.41 458.521,39.813 458.011,40.264 C 457.349,40.849 456.611,41.515 455.933,41.55 C 455.273,41.583 454.669,41.016 454.036,40.486 C 452.819,39.467 451.491,38.583 450.03,38.105 C 446.939,37.093 443.252,37.898 440.839,40.042 C 438.417,42.194 437.279,45.694 437.624,49.013 C 437.972,52.356 439.826,55.515 442.718,57.021 C 445.404,58.42 448.985,58.393 451.7,57.036 C 452.518,56.627 453.258,56.098 453.965,55.442 C 454.579,54.873 455.168,54.208 455.82,54.118 C 456.79,53.984 457.897,55.12 458.795,56.016 C 459.865,57.085 460.636,57.813 461.873,58.693 C 463.034,59.52 464.605,60.481 465.091,61.499 C 465.648,62.664 464.786,63.905 463.708,64.991 C 462.638,66.068 461.355,66.994 460.034,67.8 C 457.498,69.346 454.824,70.45 452.004,71.077 M 545.943,70.566 C 545.284,71.016 544.087,70.813 542.999,70.742 C 541.912,70.672 540.935,70.733 539.972,70.749 C 538.367,70.774 536.801,70.671 534.973,70.822 C 533.876,70.913 532.686,71.095 532.059,70.628 C 531.619,70.3 531.458,69.651 531.355,68.983 C 531.109,67.4 531.185,65.712 531.238,64.029 C 531.45,57.297 531.299,50.657 531.272,44.002 C 531.244,37.347 531.339,30.678 531.31,23.992 C 531.295,20.649 531.249,17.302 531.311,14.022 C 531.342,12.382 531.401,10.759 531.27,8.965 C 531.192,7.889 531.046,6.75 531.301,5.936 C 531.455,5.444 531.755,5.071 532.163,4.817 C 533.514,3.977 536.045,4.453 538.09,4.566 C 539.794,4.66 541.161,4.502 542.976,4.363 C 544.065,4.28 545.315,4.204 545.966,4.685 C 546.366,4.98 546.539,5.486 546.653,6.029 C 546.963,7.505 546.833,9.264 546.759,10.981 C 546.61,14.414 546.679,17.68 546.702,20.992 C 546.724,24.303 546.7,27.661 546.688,31.004 C 546.664,37.689 546.69,44.315 546.71,50.996 C 546.72,54.337 546.728,57.692 546.678,60.995 C 546.653,62.647 546.613,64.286 546.69,66.004 C 546.735,67.034 546.823,68.094 546.677,69.047 C 546.58,69.681 546.38,70.268 545.943,70.566 M 283.995,60.813 C 283.565,60.707 283.161,60.55 283.04,60.179 C 283.022,60.122 283.01,60.06 283.004,59.997 C 282.948,59.401 283.411,58.614 283.634,57.944 C 283.749,57.601 283.801,57.289 283.857,56.972 C 284.143,55.383 284.555,53.689 284.948,52.011 C 285.668,48.933 286.321,45.911 286.983,42.849 C 287.765,39.229 288.561,35.554 289.355,32.011 C 289.559,31.1 289.763,30.198 290.033,29.2 C 290.249,28.406 290.506,27.55 290.094,27.051 C 289.877,26.79 289.475,26.627 289.048,26.615 C 288.69,26.604 288.314,26.701 287.956,26.714 C 287.351,26.735 286.794,26.518 286.651,26.041 C 286.565,25.753 286.631,25.37 286.7,25.001 C 286.911,23.887 287.165,22.891 287.993,22.474 C 288.706,22.115 289.845,22.187 290.631,21.889 C 292.033,21.358 292.315,19.651 292.778,18.066 C 293.613,15.205 295.038,12.738 296.988,10.696 C 299.148,8.433 301.953,6.692 304.982,5.929 C 306.924,5.44 308.958,5.353 311.012,5.827 C 311.77,6.001 312.53,6.252 312.998,6.746 C 313.515,7.291 313.676,8.132 313.686,8.982 C 313.707,10.983 312.883,13.026 311.018,13.712 C 309.998,14.087 308.668,14.057 308.08,13.154 C 307.667,12.519 307.621,11.453 307.29,10.905 C 306.629,9.81 304.832,10.779 303.85,11.999 C 302.67,13.466 302.666,15.297 302.105,17.026 C 301.782,18.021 301.274,18.982 301.244,19.993 C 301.224,20.656 301.41,21.341 301.916,21.532 C 302.167,21.626 302.496,21.599 302.853,21.566 C 304.801,21.381 307.574,20.982 307.16,22.863 C 307.08,23.23 306.878,23.683 306.78,24.081 C 306.687,24.46 306.687,24.79 306.606,25.088 C 306.42,25.766 305.81,26.274 305.069,26.445 C 304.102,26.668 302.913,26.319 301.862,26.335 C 301.139,26.346 300.481,26.531 300.163,27.086 C 300.146,27.117 300.13,27.148 300.113,27.18 C 298.486,30.349 297.994,34.308 297.228,38.029 C 296.554,41.302 295.667,44.391 294.982,47.67 C 294.281,51.024 293.791,54.577 291.948,57.34 C 291.211,58.445 290.258,59.423 289.044,60.076 C 287.517,60.897 285.576,61.203 283.995,60.813 M 269.005,55.353 C 266.362,56.064 263.492,56.223 260.965,55.342 C 259.066,54.68 257.36,53.43 256.165,51.89 C 253.69799999999998,48.708 253.413,44.283 254.20299999999997,40.077 C 255.71800000000002,32.011 261.187,24.752 269.0,22.707 C 273.578,21.509 278.96,22.099 281.917,25.496 C 283.184,26.951 284.006,28.921 284.416,30.937 C 284.963,33.629 284.776,36.401 284.152,39.032 C 283.263,42.779 281.489,46.238 278.98,49.069 C 276.357,52.026 272.931,54.298 269.005,55.353 M 481.93,70.457 C 481.121,71.11 479.379,70.748 477.932,70.669 C 476.487,70.591 475.336,70.795 474.053,70.776 C 473.412,70.766 472.737,70.7 472.049,70.7 C 471.361,70.701 470.66,70.767 469.907,70.819 C 469.154,70.872 468.35,70.911 467.932,70.6 C 467.518,70.291 467.483,69.637 467.455,68.983 C 467.242,64.03 467.38,59.008 467.381,53.998 C 467.382,48.989 467.244,43.992 467.348,39.006 C 467.404,36.346 467.528,33.689 467.409,30.991 C 467.35,29.642 467.23,28.282 467.361,26.959 C 467.438,26.178 467.602,25.409 468.084,25.009 C 468.9,24.331 470.627,24.71 472.062,24.841 C 473.497,24.971 474.64,24.852 475.94,24.8 C 477.239,24.748 478.695,24.764 480.123,24.74 C 480.84,24.728 481.549,24.706 481.924,25.067 C 482.158,25.293 482.261,25.668 482.347,26.052 C 482.889,28.502 482.694,31.309 482.626,34.018 C 482.567,36.388 482.606,38.683 482.626,40.998 C 482.671,45.961 482.631,51.017 482.656,56.01 C 482.669,58.672 482.7,61.317 482.724,63.992 C 482.736,65.33 482.746,66.676 482.666,68.039 C 482.609,69.011 482.506,69.992 481.93,70.457 M 504.99,71.164 C 500.37800000000004,72.285 495.08299999999997,71.832 491.025,69.276 C 488.053,67.404 485.745,64.404 484.858,60.999 C 483.706,56.574 484.952,51.466 488.008,48.154 C 490.525,45.427 494.269,43.919 498.023,43.256 C 500.355,42.845 502.692,42.76 504.95899999999995,42.743 C 506.09900000000005,42.734 507.222,42.743 508.51800000000003,43.0 C 509.803,43.255 511.259,43.755 511.929,43.258 C 512.542,42.805 512.499,41.519 512.081,40.474 C 511.66499999999996,39.435 510.879,38.633 509.995,38.03 C 508.52,37.024 506.77200000000005,36.57 505.00300000000004,36.462 C 502.62,36.316 500.20000000000005,36.8 498.01300000000003,37.734 C 497.14700000000005,38.104 496.31600000000003,38.544 495.50699999999995,39.084 C 494.678,39.636 493.87,40.292 493.131,40.019 C 492.468,39.774 491.859,38.783 491.405,37.983 C 490.96,37.2 490.664,36.599 490.165,35.94 C 489.09,34.52 487.073,32.827 487.156,31.354 C 487.187,30.802 487.513,30.281 487.958,29.814 C 488.645,29.094 489.617,28.504 490.59,27.981 C 492.39,27.012 494.193,26.269 496.04499999999996,25.685 C 500.494,24.283 505.226,23.801 509.96900000000005,24.374 C 514.182,24.884 518.404,26.225 521.463,28.962 C 524.293,31.496 526.127,35.224 526.94,39.029 C 527.988,43.94 527.336,48.978 527.262,53.999 C 527.188,59.009 527.69,64.002 527.344,69.008 C 527.305,69.579 527.254,70.15 526.937,70.467 C 526.564,70.84 525.821,70.86 525.087,70.831 C 524.36,70.803 523.642,70.726 522.96,70.709 C 522.279,70.692 521.634,70.734 520.988,70.741 C 519.698,70.756 518.407,70.632 516.984,70.741 C 516.272,70.795 515.527,70.907 514.922,70.825 C 514.307,70.741 513.837,70.457 513.507,69.921 C 512.977,69.058 512.809,67.543 512.103,67.468 C 511.81500000000005,67.437 511.43600000000004,67.647 511.06100000000004,67.917 C 510.63,68.227 510.20399999999995,68.615 509.77,68.957 C 508.27599999999995,70.132 506.679,70.753 504.99,71.164 M 268.31,50.957 C 270.284,49.499 271.559,47.27 272.452,44.983 C 273.345,42.7 273.856,40.36 274.443,37.996 C 275.171,35.058 276.016,32.083 275.005,28.986 C 274.612,27.781 273.937,26.556 273.0,26.273 C 272.134,26.011 271.043,26.554 270.108,27.209 C 265.929,30.135 264.853,35.309 263.787,40.074 C 263.198,42.704 262.612,45.21 263.142,47.975 C 263.404,49.345 263.941,50.777 265.032,51.4 C 265.592,51.72 266.298,51.826 266.941,51.667 C 267.432,51.546 267.887,51.269 268.31,50.957 M 401.827,57.124 C 403.868,56.135 405.583,54.156 406.475,51.979 C 407.53,49.403 407.434,46.549 406.454,43.986 C 405.599,41.751 404.072,39.737 401.986,38.631 C 399.88,37.513 397.203,37.321 394.97,38.074 C 392.649,38.855 390.807,40.657 389.662,42.942 C 388.36,45.539 387.959,48.761 388.892,51.419 C 390.645,56.411 397.107,59.413 401.827,57.124 M 506.16600000000005,61.043 C 507.788,60.819 509.23800000000006,60.149 510.45000000000005,59.035 C 511.62199999999996,57.959 512.572,56.469 512.641,54.962 C 512.681,54.094 512.428,53.219 511.841,52.71 C 511.18100000000004,52.138 510.1,52.027 509.054,51.976 C 507.82000000000005,51.916 506.634,51.94 505.429,52.02 C 503.84900000000005,52.125 502.23699999999997,52.325 500.976,53.19 C 500.328,53.635 499.773,54.255 499.46900000000005,55.015 C 499.08799999999997,55.967 499.102,57.136 499.438,58.074 C 500.32899999999995,60.561 503.48299999999995,61.413 506.16600000000005,61.043" fill="#222222" fill-rule="evenodd"></path>
+<path id="artwork-2" d="M 268.996,79.992 C 265.678,80.417 262.314,80.629 259.009,80.689 C 258.019,80.707 257.035,80.712 255.99099999999999,80.672 C 255.29399999999998,80.646 254.57,80.6 253.97000000000003,80.354 C 253.36200000000002,80.104 252.88299999999998,79.649 252.63600000000002,79.057 C 252.389,78.465 252.377,77.735 252.34300000000002,77.016 C 252.29500000000002,75.958 252.20100000000002,74.922 252.36900000000003,73.978 C 252.478,73.36 252.7,72.782 253.039,72.244 C 253.31099999999998,71.813 253.65699999999998,71.408 253.96800000000002,70.948 C 254.33300000000003,70.407 254.64800000000002,69.79 255.06799999999998,69.379 C 256.03,68.44 257.543,68.585 258.987,68.581 C 260.367,68.577 261.683,68.437 263.007,68.298 C 268.938,67.679 275.013,67.097 280.999,66.132 C 283.671,65.701 286.326,65.194 289.01,64.904 C 291.992,64.581 295.011,64.526 298.011,64.329 C 299.348,64.24 300.681,64.124 301.984,63.822 C 303.325,63.51 304.634,63.002 306.003,62.931 C 308.341,62.809 310.853,63.962 311.886,66.022 C 313.15,68.544 312.194,72.427 309.896,73.816 C 308.797,74.48 307.391,74.573 306.023,74.84 C 305.009,75.039 304.016,75.332 303.013,75.55 C 300.045,76.194 296.989,76.17 293.99,76.533 C 291.301,76.858 288.657,77.493 285.978,77.905 C 282.677,78.414 279.324,78.586 276.008,78.995 C 273.666,79.284 271.343,79.692 268.996,79.992" fill="#FFF3A4" fill-rule="evenodd"></path>
+</svg></a>
+    <button class="share" id="share" type="button"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M12 3v13M7 8l5-5 5 5M5 14v5a2 2 0 002 2h10a2 2 0 002-2v-5"/></svg>Share</button>
+  </div>
+
+  <section class="hero">
+    <div class="portrait" aria-hidden="true">
+      <div class="disc"></div>
+      <div class="ph">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="36" r="20" fill="#222"/><path d="M12 100c0-24 17-38 38-38s38 14 38 38z" fill="#222"/></svg>
+      </div>
+      <div class="note">your photo here<svg viewBox="0 0 60 40" fill="none" stroke="#1E4EDB" stroke-width="3" stroke-linecap="round"><path d="M5 8c18 2 34 10 42 26M47 34l-10-3M47 34l2-10"/></svg></div>
+    </div>
+    <div class="eyebrow">Arturo Leduc / Founder</div>
+    <h1>Make content easy, then make it <span class="hl">good.</span></h1>
+    <p class="bio">I help creators and small teams build a content system that actually ships, every week.</p>
+    <nav class="socials" aria-label="Social profiles">
+      <a href="#" aria-label="Instagram" data-go="instagram.com/skoolofsocial" data-name="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="TikTok" data-go="tiktok.com/@skoolofsocial" data-name="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.4v13.2a2.9 2.9 0 11-2.9-2.9c.3 0 .6 0 .9.1V8.9a6.4 6.4 0 106 6.4V8.6a8 8 0 004.8 1.6V6.8A4.8 4.8 0 0116.6 2z"/></svg></a>
+      <a href="#" aria-label="YouTube" data-go="youtube.com/@skoolofsocial" data-name="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12 31 31 0 001 16.8a3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.75 15.02V8.98L15.5 12z"/></svg></a>
+      <a href="#" aria-label="Facebook" data-go="facebook.com/skoolofsocial" data-name="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6.1V8H8v3h2v11h4V11h2.7l.3-3z"/></svg></a>
+    </nav>
+  </section>
+
+  <section class="section" aria-labelledby="work">
+    <div class="label" id="work">Work with me</div>
+    <button class="card lead" type="button" data-sheet="apply" data-name="Work directly with Arturo">
+      <span class="k">1:1 coaching / Limited spots</span>
+      <span class="t">Work directly with Arturo.</span>
+      <span class="d">12 weeks building your content system with me. Strategy, scripts, feedback on every post.</span>
+      <span class="row"><span class="pill">Apply now <span aria-hidden="true">&rarr;</span></span><span class="fine" style="color:rgba(255,255,255,.75)">2 min form</span></span>
+    </button>
+    <button class="card" type="button" data-sheet="book" data-name="Book a consultation">
+      <span class="k">One-time call / 60 min</span>
+      <span class="t">Book a one-time consultation.</span>
+      <span class="d">Bring your account, your content, your questions. Leave with a clear plan.</span>
+      <span class="row"><span class="price">$250 <small>USD</small></span><span class="pill">Pick a time</span></span>
+    </button>
+  </section>
+
+  <section class="section" aria-labelledby="comm">
+    <div class="label" id="comm">Community</div>
+    <a class="card" href="#" data-go="skool.com/skool-of-social" data-name="Skool community">
+      <span class="row" style="margin-top:0"><span class="k">The Skool community</span><span class="badge">Free to join</span></span>
+      <span class="t">Less guessing. More making.</span>
+      <span class="d">Weekly prompts, templates and feedback from people doing the same work.</span>
+      <span class="row"><span class="pill">Join the community <span aria-hidden="true">&rarr;</span></span></span>
+    </a>
+  </section>
+
+  <section class="section" aria-labelledby="fol">
+    <div class="label" id="fol">Follow along</div>
+    <div class="list">
+      <a href="#" data-go="instagram.com/skoolofsocial" data-name="Instagram"><span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.2" fill="currentColor" stroke="none"/></svg></span><span class="nm">Instagram<small>Daily tips and behind the scenes</small></span><span class="arr">&rarr;</span></a>
+      <a href="#" data-go="tiktok.com/@skoolofsocial" data-name="TikTok"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 2h-3.4v13.2a2.9 2.9 0 11-2.9-2.9c.3 0 .6 0 .9.1V8.9a6.4 6.4 0 106 6.4V8.6a8 8 0 004.8 1.6V6.8A4.8 4.8 0 0116.6 2z"/></svg></span><span class="nm">TikTok<small>Quick hooks and breakdowns</small></span><span class="arr">&rarr;</span></a>
+      <a href="#" data-go="youtube.com/@skoolofsocial" data-name="YouTube"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 00-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 001 7.2 31 31 0 00.5 12 31 31 0 001 16.8a3 3 0 002.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 002.1-2.1 31 31 0 00.5-4.8 31 31 0 00-.5-4.8zM9.75 15.02V8.98L15.5 12z"/></svg></span><span class="nm">YouTube<small>Full tutorials, every week</small></span><span class="arr">&rarr;</span></a>
+      <a href="#" data-go="facebook.com/skoolofsocial" data-name="Facebook"><span class="ic"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 8V6.2c0-.8.2-1.2 1.4-1.2H17V2h-2.6C11.3 2 10 3.5 10 6.1V8H8v3h2v11h4V11h2.7l.3-3z"/></svg></span><span class="nm">Facebook<small>Lives and updates</small></span><span class="arr">&rarr;</span></a>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="em">
+    <div class="label" id="em">Get in touch</div>
+    <div class="email">
+      <span class="fine">Brand deals, speaking, or just saying hi.</span>
+      <span class="addr" id="addr">hello@skoolofsocial.com</span>
+      <div class="btns">
+        <button class="solid" type="button" id="copy">Copy email</button>
+        <a class="ghost" href="#" data-go="mailto:hello@skoolofsocial.com" data-name="Email">Open mail app</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <svg role="img" aria-label="Skool of Social" xmlns="http://www.w3.org/2000/svg" viewBox="-7.560 -7.560 584.120 99.120">
+
+
+<path id="artwork-1" d="M 51.66845410679172,71.34093165965083 C 44.52481539377608,72.44985319235371 37.296675039933156,71.45663390632205 30.882350488519304,68.37947415496483 C 28.188698183993665,67.08724906292888 25.638048656252685,65.4271168269833 23.405905313168454,63.32887608397924 C 22.18388158428134,62.180953793971455 21.0567596981695,60.90172895437048 21.49746825571496,59.56140292832515 C 21.817274465615206,58.58768402094594 22.965196755622998,57.58276450772283 23.909015082401766,56.7429482004238 C 25.084237902522993,55.69902792989576 25.94485461371796,54.91251265758012 26.96667445510655,53.724289585023925 C 28.078196038296426,52.43336451823147 29.380821332280348,50.66663021231915 30.601545035923962,50.49242682969056 C 31.59996442292961,50.3507240781494 32.54378274970838,51.27504202627571 33.49280117746114,52.25656108511589 C 34.34301768670813,53.13407812447632 35.19713427168561,54.05969609784614 36.133152447003404,54.802010511882884 C 38.700702302909846,56.84305014417306 41.885764149477325,57.51646322030447 45.19302836893351,57.75306781462092 C 47.44337206542669,57.91297091957104 49.74961684739025,57.87137011177913 51.625553273756324,56.84305014417306 C 52.65387324136239,56.2788391884954 53.55219068461877,55.41822247730043 54.024099848008156,54.27680031351012 C 54.54670999589392,53.017075852561604 54.54931004638092,51.41544475257338 53.98379906545975,50.22982173050417 C 53.297385736893375,48.79589388692706 51.77895625248896,47.972977907793506 50.298227500145956,47.24496377143522 C 47.54217398393246,45.889037442467924 44.92132309304265,44.86071747486186 42.1483692486637,43.768696270324426 C 36.72986403376849,41.635354845745965 30.728947509786664,39.25630865014659 27.188978771744523,34.71402044936831 C 23.339604025750113,29.775224549323475 22.39968577470183,22.277978970076678 24.871033762589494,16.47076620737589 C 27.07717660080379,11.287565561553627 32.00167222317016,7.451191067994188 37.422777488552356,5.623355575637503 C 44.12180756829204,3.366511752926833 51.58005239023393,4.173827429138426 58.20368100585079,6.2733681973859685 C 60.98703505217772,7.154785312476887 63.62348624598949,8.265006870423267 66.13253496593856,10.22024483664265 C 67.51836187550629,11.300565813988598 68.86518802776911,12.636991764303444 68.59868285285225,13.826514862103133 C 68.4088791673017,14.67803139659362 67.3909594016436,15.45414646696129 66.48744185741323,16.36546416265264 C 64.21369770653709,18.662608767911713 62.67316779299324,21.821670109609254 60.37732321297765,22.71738750237864 C 59.69480996014176,22.983892677295508 58.94599541988753,23.050193964713852 58.20628105633778,22.74598805773557 C 57.75517229684435,22.558784422672012 57.307963613081405,22.23507813704128 56.85425480310097,21.915271927141035 C 55.62313089750938,21.048155089728585 54.35170620936938,20.22263906010803 53.003580031863066,19.66362820540435 C 51.34214777067399,18.973314801107485 49.565013262813686,18.688609272781655 47.778778578248904,18.545606495996992 C 46.151146973390745,18.414303946403802 44.51441519182811,18.398703643481838 42.9946856821802,19.081216896317727 C 41.50875682886321,19.74942987147515 40.132030095999966,21.083255771303 39.90582570363149,22.622485659603363 C 39.758922851116345,23.615704945635017 40.093029338695054,24.696025922980965 40.61823953706781,25.56704283612391 C 42.29397207593536,28.33739663001587 45.91844245480479,28.986109226520835 49.16200543732964,29.91302722513415 C 52.349667334384115,30.823044895582 55.16942208752895,32.00216779143372 58.11007918831901,33.363294221375 C 60.43452432369153,34.43841509774696 62.83307089794336,35.62663817030316 64.74020793015336,37.31407093636217 C 67.06595309076937,39.37071087157432 68.6597840392966,42.167065170336215 69.57500181071845,45.131122725509215 C 70.6033217783245,48.46308742459185 70.77102503473562,52.00435618787749 70.10541211006519,55.49882404239723 C 69.56330158352696,58.34197924992502 68.46738030325905,61.15393385160888 66.80724806731348,63.41857782578053 C 63.38298157594256,68.08566844993452 57.55366838410232,70.42701391347248 51.668454106791714,71.34093165965082 M 72.0,5.0 Q 72.0,4.4 73.0,4.4 L 86.0,4.4 Q 87.0,4.4 87.0,5.4 L 87.0,42.0 L 102.5,24.4 L 120.0,24.4 L 100.5,46.2 L 122.0,70.9 L 103.0,70.9 L 87.0,51.3 L 87.0,70.0 Q 87.0,71.0 86.0,71.0 L 73.0,71.0 Q 72.0,71.0 72.0,70.0 L 72.0,5.0 M 199.984,71.284 C 187.984,73.448 174.606,66.43 171.612,53.878 C 171.423,53.088 171.276,52.276 171.075,52.207 C 170.873,52.137 170.618,52.807 170.367,53.635 C 170.135,54.397 169.906,55.294 169.668,56.049 C 169.421,56.829 169.164,57.457 168.87,58.084 C 167.729,60.522 166.035,62.944 163.993,64.931 C 159.734,69.078 153.958,71.338 148.022,71.624 C 141.72,71.927 135.237,70.006 130.467,66.012 C 126.035,62.3 123.08099999999999,56.798 122.34299999999999,51.002 C 121.529,44.618 123.40100000000001,37.876 127.43299999999999,32.944 C 131.033,28.539 136.355,25.577 142.011,24.559 C 148.549,23.381 155.533,24.799 161.007,28.471 C 163.367,30.055 165.447,32.058 167.013,34.469 C 168.519,36.787 169.549,39.482 170.368,42.132 C 170.585,42.833 170.787,43.531 170.992,43.55 C 171.198,43.569 171.407,42.91 171.618,42.219 C 172.034,40.853 172.456,39.364 173.023,37.976 C 174.132,35.258 175.795,32.926 177.802,30.983 C 182.092,26.832 187.957,24.457 193.982,24.167 C 200.327,23.862 206.85,25.871 211.607,29.972 C 215.968,33.732 218.845,39.249 219.548,45.014 C 220.326,51.393 218.441,58.074 214.366,62.998 C 210.793,67.315 205.536,70.282 199.984,71.284 M 147.115,58.062 C 149.769,57.916 152.301,56.464 153.914,54.316 C 155.649,52.004 156.321,48.884 155.833,45.971 C 155.391,43.338 154.001,40.874 151.916,39.363 C 149.965,37.949 147.406,37.37 145.031,37.797 C 142.661,38.223 140.475,39.653 139.054,41.651 C 137.374,44.013 136.764,47.171 137.325,50.036 C 137.801,52.468 139.12,54.689 141.072,56.164 C 142.787,57.46 144.99,58.18 147.115,58.062 M 199.375,57.091 C 201.551,55.976 203.269,53.718 204.079,51.266 C 204.988,48.515 204.755,45.518 203.513,42.988 C 202.39,40.699 200.441,38.791 198.039,38.036 C 195.78,37.326 193.12,37.635 191.026,38.765 C 188.986,39.865 187.482,41.744 186.658,43.959 C 186.182,45.239 185.933,46.632 185.907,48.031 C 185.882,49.43 186.08,50.835 186.585,52.086 C 188.511,56.859 194.91,59.378 199.375,57.091 M 235.946,70.59 C 235.275,71.041 234.079,70.879 232.997,70.814 C 231.915,70.75 230.947,70.782 229.981,70.788 C 228.373,70.797 226.773,70.73 224.956,70.805 C 223.862,70.851 222.69,70.948 222.108,70.41 C 221.763,70.09 221.626,69.545 221.529,68.984 C 221.259,67.416 221.301,65.721 221.332,64.034 C 221.457,57.287 221.402,50.657 221.393,44.004 C 221.384,37.351 221.42,30.674 221.383,23.991 C 221.364,20.649 221.327,17.306 221.393,14.022 C 221.426,12.38 221.485,10.753 221.358,8.966 C 221.282,7.893 221.14,6.763 221.406,5.937 C 221.552,5.486 221.819,5.126 222.178,4.874 C 223.493,3.951 226.033,4.484 228.088,4.605 C 229.8,4.706 231.174,4.522 232.981,4.383 C 234.065,4.299 235.304,4.232 235.949,4.71 C 236.341,5.001 236.513,5.494 236.626,6.029 C 236.935,7.491 236.803,9.258 236.731,10.979 C 236.587,14.421 236.684,17.681 236.721,20.991 C 236.759,24.3 236.737,27.66 236.729,31.004 C 236.712,37.691 236.748,44.313 236.756,50.996 C 236.76,54.337 236.757,57.694 236.712,60.995 C 236.69,62.646 236.656,64.282 236.735,66.004 C 236.783,67.037 236.87,68.101 236.719,69.048 C 236.617,69.693 236.403,70.283 235.946,70.59 M 476.995,20.189 C 474.625,20.812 472.004,20.275 469.977,18.916 C 467.957,17.56 466.526,15.388 466.152,13.015 C 465.768,10.576 466.5,7.926 468.106,5.982 C 469.47,4.331 471.465,3.19 473.54,2.906 C 477.979,2.298 482.784,5.611 483.614,9.908 C 484.07,12.262 483.331,14.913 481.756,16.946 C 480.548,18.505 478.848,19.702 476.995,20.189 M 452.004,71.077 C 445.042,72.623 437.189,71.261 431.445,66.984 C 428.968,65.14 426.883,62.753 425.392,59.991 C 425.032,59.325 424.707,58.638 424.402,57.977 C 424.107,57.34 423.831,56.728 423.631,56.03 C 423.393,55.202 423.261,54.252 422.926,53.39 C 422.675,52.746 422.311,52.151 422.053,52.146 C 421.619,52.138 421.483,53.799 421.208,55.006 C 421.024,55.811 420.777,56.413 420.501,57.033 C 419.919,58.34 419.205,59.725 418.361,60.999 C 416.78,63.386 414.745,65.389 412.431,67.0 C 406.868,70.873 399.695,72.478 393.004,71.29 C 387.034,70.229 381.447,66.946 377.861,62.042 C 376.735,60.501 375.805,58.801 375.151,56.932 C 374.908,56.242 374.704,55.528 374.459,54.857 C 374.265,54.324 374.046,53.818 373.767,53.759 C 373.573,53.717 373.351,53.892 373.174,54.124 C 372.501,55.007 372.48,56.719 372.073,58.243 C 371.67,59.753 370.889,61.077 370.003,62.279 C 361.92,73.24 345.058,74.042 333.524,67.949 C 330.801,66.511 328.376,64.689 325.895,62.348 C 325.4,61.881 324.903,61.393 324.701,60.897 C 324.454,60.286 324.653,59.663 325.028,59.056 C 325.712,57.948 326.979,56.891 328.056,55.942 C 329.508,54.662 330.612,53.577 332.059,51.954 C 332.727,51.206 333.467,50.343 334.137,50.229 C 334.773,50.121 335.346,50.689 335.936,51.256 C 337.999,53.235 340.28,55.187 342.989,56.285 C 344.891,57.055 347.004,57.404 349.03,57.444 C 350.72,57.476 352.351,57.294 353.949,56.556 C 355.274,55.944 356.577,54.951 357.109,53.685 C 357.73,52.206 357.298,50.354 356.401,49.0 C 354.825,46.617 351.81,45.774 348.96,44.896 C 345.826,43.93 342.891,42.922 340.009,41.61 C 337.118,40.296 334.28,38.676 332.031,36.387 C 330.022,34.341 328.483,31.761 327.682,29.0 C 325.759,22.373 328.083,14.701 333.001,10.085 C 337.865,5.521 345.268,3.945 352.098,4.295 C 358.627,4.629 364.634,6.722 370.051,10.889 C 371.22,11.788 372.362,12.784 371.92,13.878 C 371.64,14.569 370.727,15.299 370.066,16.005 C 369.639,16.461 369.316,16.908 368.968,17.329 C 368.081,18.402 367.029,19.309 365.999,20.475 C 365.027,21.576 364.075,22.907 362.982,23.029 C 361.71,23.169 360.249,21.673 358.885,20.708 C 357.643,19.829 356.483,19.389 355.111,19.005 C 351.805,18.079 347.272,17.475 344.97,19.981 C 343.707,21.354 343.116,23.663 343.93,25.243 C 344.589,26.523 346.17,27.324 347.696,27.989 C 350.635,29.27 353.374,30.043 356.179,30.994 C 359.163,32.005 362.222,33.216 364.925,34.985 C 367.326,36.555 369.446,38.564 370.841,40.95 C 371.303,41.742 371.686,42.574 372.036,43.647 C 372.356,44.632 372.648,45.818 372.975,45.777 C 373.138,45.756 373.309,45.432 373.447,45.067 C 373.71,44.373 373.853,43.532 374.034,42.702 C 374.726,39.523 375.966,36.507 377.764,33.945 C 381.283,28.931 386.941,25.651 393.003,24.559 C 399.946,23.308 407.419,24.929 413.029,29.141 C 415.419,30.936 417.47,33.201 419.006,35.786 C 419.794,37.113 420.446,38.525 420.886,39.981 C 421.084,40.636 421.239,41.301 421.4,42.068 C 421.59,42.974 421.789,44.024 422.054,44.059 C 422.335,44.096 422.69,42.993 422.972,42.034 C 423.31,40.886 423.542,39.944 423.874,38.999 C 424.351,37.638 425.034,36.274 425.841,34.997 C 427.316,32.663 429.204,30.619 431.383,28.987 C 437.14,24.673 444.925,23.237 451.987,24.731 C 455.226,25.416 458.313,26.718 460.977,28.637 C 462.009,29.38 462.977,30.216 464.026,31.126 C 464.723,31.73 465.455,32.368 465.514,33.038 C 465.572,33.71 464.954,34.414 464.298,35.023 C 463.224,36.019 462.046,36.758 460.973,37.644 C 460.449,38.076 459.95,38.543 459.451,38.993 C 458.986,39.41 458.521,39.813 458.011,40.264 C 457.349,40.849 456.611,41.515 455.933,41.55 C 455.273,41.583 454.669,41.016 454.036,40.486 C 452.819,39.467 451.491,38.583 450.03,38.105 C 446.939,37.093 443.252,37.898 440.839,40.042 C 438.417,42.194 437.279,45.694 437.624,49.013 C 437.972,52.356 439.826,55.515 442.718,57.021 C 445.404,58.42 448.985,58.393 451.7,57.036 C 452.518,56.627 453.258,56.098 453.965,55.442 C 454.579,54.873 455.168,54.208 455.82,54.118 C 456.79,53.984 457.897,55.12 458.795,56.016 C 459.865,57.085 460.636,57.813 461.873,58.693 C 463.034,59.52 464.605,60.481 465.091,61.499 C 465.648,62.664 464.786,63.905 463.708,64.991 C 462.638,66.068 461.355,66.994 460.034,67.8 C 457.498,69.346 454.824,70.45 452.004,71.077 M 545.943,70.566 C 545.284,71.016 544.087,70.813 542.999,70.742 C 541.912,70.672 540.935,70.733 539.972,70.749 C 538.367,70.774 536.801,70.671 534.973,70.822 C 533.876,70.913 532.686,71.095 532.059,70.628 C 531.619,70.3 531.458,69.651 531.355,68.983 C 531.109,67.4 531.185,65.712 531.238,64.029 C 531.45,57.297 531.299,50.657 531.272,44.002 C 531.244,37.347 531.339,30.678 531.31,23.992 C 531.295,20.649 531.249,17.302 531.311,14.022 C 531.342,12.382 531.401,10.759 531.27,8.965 C 531.192,7.889 531.046,6.75 531.301,5.936 C 531.455,5.444 531.755,5.071 532.163,4.817 C 533.514,3.977 536.045,4.453 538.09,4.566 C 539.794,4.66 541.161,4.502 542.976,4.363 C 544.065,4.28 545.315,4.204 545.966,4.685 C 546.366,4.98 546.539,5.486 546.653,6.029 C 546.963,7.505 546.833,9.264 546.759,10.981 C 546.61,14.414 546.679,17.68 546.702,20.992 C 546.724,24.303 546.7,27.661 546.688,31.004 C 546.664,37.689 546.69,44.315 546.71,50.996 C 546.72,54.337 546.728,57.692 546.678,60.995 C 546.653,62.647 546.613,64.286 546.69,66.004 C 546.735,67.034 546.823,68.094 546.677,69.047 C 546.58,69.681 546.38,70.268 545.943,70.566 M 283.995,60.813 C 283.565,60.707 283.161,60.55 283.04,60.179 C 283.022,60.122 283.01,60.06 283.004,59.997 C 282.948,59.401 283.411,58.614 283.634,57.944 C 283.749,57.601 283.801,57.289 283.857,56.972 C 284.143,55.383 284.555,53.689 284.948,52.011 C 285.668,48.933 286.321,45.911 286.983,42.849 C 287.765,39.229 288.561,35.554 289.355,32.011 C 289.559,31.1 289.763,30.198 290.033,29.2 C 290.249,28.406 290.506,27.55 290.094,27.051 C 289.877,26.79 289.475,26.627 289.048,26.615 C 288.69,26.604 288.314,26.701 287.956,26.714 C 287.351,26.735 286.794,26.518 286.651,26.041 C 286.565,25.753 286.631,25.37 286.7,25.001 C 286.911,23.887 287.165,22.891 287.993,22.474 C 288.706,22.115 289.845,22.187 290.631,21.889 C 292.033,21.358 292.315,19.651 292.778,18.066 C 293.613,15.205 295.038,12.738 296.988,10.696 C 299.148,8.433 301.953,6.692 304.982,5.929 C 306.924,5.44 308.958,5.353 311.012,5.827 C 311.77,6.001 312.53,6.252 312.998,6.746 C 313.515,7.291 313.676,8.132 313.686,8.982 C 313.707,10.983 312.883,13.026 311.018,13.712 C 309.998,14.087 308.668,14.057 308.08,13.154 C 307.667,12.519 307.621,11.453 307.29,10.905 C 306.629,9.81 304.832,10.779 303.85,11.999 C 302.67,13.466 302.666,15.297 302.105,17.026 C 301.782,18.021 301.274,18.982 301.244,19.993 C 301.224,20.656 301.41,21.341 301.916,21.532 C 302.167,21.626 302.496,21.599 302.853,21.566 C 304.801,21.381 307.574,20.982 307.16,22.863 C 307.08,23.23 306.878,23.683 306.78,24.081 C 306.687,24.46 306.687,24.79 306.606,25.088 C 306.42,25.766 305.81,26.274 305.069,26.445 C 304.102,26.668 302.913,26.319 301.862,26.335 C 301.139,26.346 300.481,26.531 300.163,27.086 C 300.146,27.117 300.13,27.148 300.113,27.18 C 298.486,30.349 297.994,34.308 297.228,38.029 C 296.554,41.302 295.667,44.391 294.982,47.67 C 294.281,51.024 293.791,54.577 291.948,57.34 C 291.211,58.445 290.258,59.423 289.044,60.076 C 287.517,60.897 285.576,61.203 283.995,60.813 M 269.005,55.353 C 266.362,56.064 263.492,56.223 260.965,55.342 C 259.066,54.68 257.36,53.43 256.165,51.89 C 253.69799999999998,48.708 253.413,44.283 254.20299999999997,40.077 C 255.71800000000002,32.011 261.187,24.752 269.0,22.707 C 273.578,21.509 278.96,22.099 281.917,25.496 C 283.184,26.951 284.006,28.921 284.416,30.937 C 284.963,33.629 284.776,36.401 284.152,39.032 C 283.263,42.779 281.489,46.238 278.98,49.069 C 276.357,52.026 272.931,54.298 269.005,55.353 M 481.93,70.457 C 481.121,71.11 479.379,70.748 477.932,70.669 C 476.487,70.591 475.336,70.795 474.053,70.776 C 473.412,70.766 472.737,70.7 472.049,70.7 C 471.361,70.701 470.66,70.767 469.907,70.819 C 469.154,70.872 468.35,70.911 467.932,70.6 C 467.518,70.291 467.483,69.637 467.455,68.983 C 467.242,64.03 467.38,59.008 467.381,53.998 C 467.382,48.989 467.244,43.992 467.348,39.006 C 467.404,36.346 467.528,33.689 467.409,30.991 C 467.35,29.642 467.23,28.282 467.361,26.959 C 467.438,26.178 467.602,25.409 468.084,25.009 C 468.9,24.331 470.627,24.71 472.062,24.841 C 473.497,24.971 474.64,24.852 475.94,24.8 C 477.239,24.748 478.695,24.764 480.123,24.74 C 480.84,24.728 481.549,24.706 481.924,25.067 C 482.158,25.293 482.261,25.668 482.347,26.052 C 482.889,28.502 482.694,31.309 482.626,34.018 C 482.567,36.388 482.606,38.683 482.626,40.998 C 482.671,45.961 482.631,51.017 482.656,56.01 C 482.669,58.672 482.7,61.317 482.724,63.992 C 482.736,65.33 482.746,66.676 482.666,68.039 C 482.609,69.011 482.506,69.992 481.93,70.457 M 504.99,71.164 C 500.37800000000004,72.285 495.08299999999997,71.832 491.025,69.276 C 488.053,67.404 485.745,64.404 484.858,60.999 C 483.706,56.574 484.952,51.466 488.008,48.154 C 490.525,45.427 494.269,43.919 498.023,43.256 C 500.355,42.845 502.692,42.76 504.95899999999995,42.743 C 506.09900000000005,42.734 507.222,42.743 508.51800000000003,43.0 C 509.803,43.255 511.259,43.755 511.929,43.258 C 512.542,42.805 512.499,41.519 512.081,40.474 C 511.66499999999996,39.435 510.879,38.633 509.995,38.03 C 508.52,37.024 506.77200000000005,36.57 505.00300000000004,36.462 C 502.62,36.316 500.20000000000005,36.8 498.01300000000003,37.734 C 497.14700000000005,38.104 496.31600000000003,38.544 495.50699999999995,39.084 C 494.678,39.636 493.87,40.292 493.131,40.019 C 492.468,39.774 491.859,38.783 491.405,37.983 C 490.96,37.2 490.664,36.599 490.165,35.94 C 489.09,34.52 487.073,32.827 487.156,31.354 C 487.187,30.802 487.513,30.281 487.958,29.814 C 488.645,29.094 489.617,28.504 490.59,27.981 C 492.39,27.012 494.193,26.269 496.04499999999996,25.685 C 500.494,24.283 505.226,23.801 509.96900000000005,24.374 C 514.182,24.884 518.404,26.225 521.463,28.962 C 524.293,31.496 526.127,35.224 526.94,39.029 C 527.988,43.94 527.336,48.978 527.262,53.999 C 527.188,59.009 527.69,64.002 527.344,69.008 C 527.305,69.579 527.254,70.15 526.937,70.467 C 526.564,70.84 525.821,70.86 525.087,70.831 C 524.36,70.803 523.642,70.726 522.96,70.709 C 522.279,70.692 521.634,70.734 520.988,70.741 C 519.698,70.756 518.407,70.632 516.984,70.741 C 516.272,70.795 515.527,70.907 514.922,70.825 C 514.307,70.741 513.837,70.457 513.507,69.921 C 512.977,69.058 512.809,67.543 512.103,67.468 C 511.81500000000005,67.437 511.43600000000004,67.647 511.06100000000004,67.917 C 510.63,68.227 510.20399999999995,68.615 509.77,68.957 C 508.27599999999995,70.132 506.679,70.753 504.99,71.164 M 268.31,50.957 C 270.284,49.499 271.559,47.27 272.452,44.983 C 273.345,42.7 273.856,40.36 274.443,37.996 C 275.171,35.058 276.016,32.083 275.005,28.986 C 274.612,27.781 273.937,26.556 273.0,26.273 C 272.134,26.011 271.043,26.554 270.108,27.209 C 265.929,30.135 264.853,35.309 263.787,40.074 C 263.198,42.704 262.612,45.21 263.142,47.975 C 263.404,49.345 263.941,50.777 265.032,51.4 C 265.592,51.72 266.298,51.826 266.941,51.667 C 267.432,51.546 267.887,51.269 268.31,50.957 M 401.827,57.124 C 403.868,56.135 405.583,54.156 406.475,51.979 C 407.53,49.403 407.434,46.549 406.454,43.986 C 405.599,41.751 404.072,39.737 401.986,38.631 C 399.88,37.513 397.203,37.321 394.97,38.074 C 392.649,38.855 390.807,40.657 389.662,42.942 C 388.36,45.539 387.959,48.761 388.892,51.419 C 390.645,56.411 397.107,59.413 401.827,57.124 M 506.16600000000005,61.043 C 507.788,60.819 509.23800000000006,60.149 510.45000000000005,59.035 C 511.62199999999996,57.959 512.572,56.469 512.641,54.962 C 512.681,54.094 512.428,53.219 511.841,52.71 C 511.18100000000004,52.138 510.1,52.027 509.054,51.976 C 507.82000000000005,51.916 506.634,51.94 505.429,52.02 C 503.84900000000005,52.125 502.23699999999997,52.325 500.976,53.19 C 500.328,53.635 499.773,54.255 499.46900000000005,55.015 C 499.08799999999997,55.967 499.102,57.136 499.438,58.074 C 500.32899999999995,60.561 503.48299999999995,61.413 506.16600000000005,61.043" fill="#FFFFFF" fill-rule="evenodd"></path>
+<path id="artwork-2" d="M 268.996,79.992 C 265.678,80.417 262.314,80.629 259.009,80.689 C 258.019,80.707 257.035,80.712 255.99099999999999,80.672 C 255.29399999999998,80.646 254.57,80.6 253.97000000000003,80.354 C 253.36200000000002,80.104 252.88299999999998,79.649 252.63600000000002,79.057 C 252.389,78.465 252.377,77.735 252.34300000000002,77.016 C 252.29500000000002,75.958 252.20100000000002,74.922 252.36900000000003,73.978 C 252.478,73.36 252.7,72.782 253.039,72.244 C 253.31099999999998,71.813 253.65699999999998,71.408 253.96800000000002,70.948 C 254.33300000000003,70.407 254.64800000000002,69.79 255.06799999999998,69.379 C 256.03,68.44 257.543,68.585 258.987,68.581 C 260.367,68.577 261.683,68.437 263.007,68.298 C 268.938,67.679 275.013,67.097 280.999,66.132 C 283.671,65.701 286.326,65.194 289.01,64.904 C 291.992,64.581 295.011,64.526 298.011,64.329 C 299.348,64.24 300.681,64.124 301.984,63.822 C 303.325,63.51 304.634,63.002 306.003,62.931 C 308.341,62.809 310.853,63.962 311.886,66.022 C 313.15,68.544 312.194,72.427 309.896,73.816 C 308.797,74.48 307.391,74.573 306.023,74.84 C 305.009,75.039 304.016,75.332 303.013,75.55 C 300.045,76.194 296.989,76.17 293.99,76.533 C 291.301,76.858 288.657,77.493 285.978,77.905 C 282.677,78.414 279.324,78.586 276.008,78.995 C 273.666,79.284 271.343,79.692 268.996,79.992" fill="#FFF3A4" fill-rule="evenodd"></path>
+</svg>
+    <p class="motto">Make content easy, then make it good.</p>
+    <p>&copy; 2026 Skool of Social. Vancouver, BC.</p>
+    <button type="button" id="owner">Owner view: link taps</button>
+  </footer>
+</main>
+
+<div class="scrim" id="scrim" hidden></div>
+
+<!-- Apply sheet -->
+<div class="sheet" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT" hidden>
+  <button class="x" type="button" data-close aria-label="Close">&times;</button>
+  <div class="in">
+    <div class="grab"></div>
+    <div class="steps" id="applySteps"><i class="on"></i><i></i><i></i></div>
+    <div id="applyBody"></div>
+  </div>
+</div>
+
+<!-- Book sheet -->
+<div class="sheet" id="book" role="dialog" aria-modal="true" aria-labelledby="bookT" hidden>
+  <button class="x" type="button" data-close aria-label="Close">&times;</button>
+  <div class="in" id="bookBody"></div>
+</div>
+
+<!-- Owner analytics -->
+<div class="sheet" id="stats" role="dialog" aria-modal="true" aria-labelledby="statsT" hidden>
+  <button class="x" type="button" data-close aria-label="Close">&times;</button>
+  <div class="in">
+    <div class="grab"></div>
+    <span class="eyebrow">Mock analytics</span>
+    <h2 id="statsT">Which links get tapped.</h2>
+    <p>Taps from this mockup session, added to sample numbers. The real version would use Vercel Analytics.</p>
+    <div class="stats" id="statList"></div>
+    <button class="ghost" type="button" id="reset" style="align-self:flex-start">Reset my taps</button>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  var $=function(s,r){return (r||document).querySelector(s)}, $$=function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+  var toastEl=$('#toast'), tt;
+  function toast(html){toastEl.innerHTML=html;toastEl.classList.add('on');clearTimeout(tt);tt=setTimeout(function(){toastEl.classList.remove('on')},2600)}
+
+  // --- mock analytics
+  var BASE={"Work directly with Arturo":38,"Book a consultation":61,"Skool community":142,"Instagram":96,"TikTok":71,"YouTube":54,"Facebook":12,"Email":19,"Website":8};
+  var taps={};
+  try{taps=JSON.parse(localStorage.getItem('sos-taps')||'{}')||{}}catch(e){taps={}}
+  function track(n){if(!n)return;taps[n]=(taps[n]||0)+1;try{localStorage.setItem('sos-taps',JSON.stringify(taps))}catch(e){}}
+  function renderStats(){
+    var rows=Object.keys(BASE).map(function(k){return [k,BASE[k]+(taps[k]||0),taps[k]||0]}).sort(function(a,b){return b[1]-a[1]});
+    var max=rows[0][1];
+    $('#statList').innerHTML=rows.map(function(r){return '<div class="stat"><span>'+r[0]+(r[2]?' <span class="fine">(+'+r[2]+' you)</span>':'')+'</span><b>'+r[1]+'</b><span class="bar"><i style="width:'+(r[1]/max*100)+'%"></i></span></div>'}).join('');
+  }
+
+  // --- fake outbound links
+  $$('[data-go]').forEach(function(a){a.addEventListener('click',function(e){e.preventDefault();track(a.dataset.name);toast('Would open <code>'+a.dataset.go+'</code>')})});
+
+  // --- sheets
+  var scrim=$('#scrim'), open=null, lastFocus=null;
+  function show(id){
+    lastFocus=document.activeElement;
+    open=$('#'+id);scrim.hidden=false;open.hidden=false;
+    requestAnimationFrame(function(){scrim.classList.add('on');open.classList.add('on')});
+    document.body.style.overflow='hidden';
+    setTimeout(function(){var f=open.querySelector('input,button.chip,button.day,.x');if(f)f.focus()},300);
+  }
+  function hide(){
+    if(!open)return;var el=open;open=null;
+    el.classList.remove('on');scrim.classList.remove('on');document.body.style.overflow='';
+    setTimeout(function(){el.hidden=true;scrim.hidden=true},280);
+    if(lastFocus)lastFocus.focus();
+  }
+  scrim.addEventListener('click',hide);
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')hide()});
+  $$('[data-close]').forEach(function(b){b.addEventListener('click',hide)});
+  $$('[data-sheet]').forEach(function(b){b.addEventListener('click',function(){track(b.dataset.name);if(b.dataset.sheet==='apply')applyStep(0);else bookStep(0);show(b.dataset.sheet)})});
+  $('#owner').addEventListener('click',function(){renderStats();show('stats')});
+  $('#reset').addEventListener('click',function(){taps={};try{localStorage.removeItem('sos-taps')}catch(e){}renderStats()});
+
+  function chipGroup(root,multi){$$('.chip',root).forEach(function(c){c.addEventListener('click',function(){if(!multi)$$('.chip',root).forEach(function(o){o.setAttribute('aria-pressed','false')});c.setAttribute('aria-pressed',c.getAttribute('aria-pressed')==='true'?'false':'true')})})}
+
+  // --- apply flow (3 steps)
+  var app={};
+  function steps(n){$$('#applySteps i').forEach(function(i,k){i.classList.toggle('on',k<=n)})}
+  function applyStep(n){
+    steps(n);var b=$('#applyBody');
+    if(n===0){
+      b.innerHTML='<form id="a0"><span class="eyebrow">Step 1 of 3 / About you</span><h2 id="applyT">Work directly with Arturo.</h2><p>A few quick questions so I know if we are a good fit. I read every one.</p>'+
+      '<label class="f" for="aName">Your name<input id="aName" required autocomplete="name" value="Jordan Rivera"></label>'+
+      '<label class="f" for="aEmail">Email<input id="aEmail" type="email" required autocomplete="email" value="jordan@example.com"></label>'+
+      '<label class="f" for="aHandle">Main account (link or @handle)<input id="aHandle" value="@jordanmakes"></label>'+
+      '<button class="solid" type="submit">Next</button></form>';
+      $('#a0').addEventListener('submit',function(e){e.preventDefault();app.name=$('#aName').value.split(' ')[0];applyStep(1)});
+    } else if(n===1){
+      b.innerHTML='<form id="a1"><span class="eyebrow">Step 2 of 3 / Where you are</span><h2>What is the goal?</h2>'+
+      '<div class="f" style="font-size:13px;font-weight:600">I want to...</div><div class="chips" id="goal"><button type="button" class="chip" aria-pressed="true">Grow my audience</button><button type="button" class="chip" aria-pressed="false">Get clients from content</button><button type="button" class="chip" aria-pressed="false">Post consistently</button><button type="button" class="chip" aria-pressed="false">Build a team system</button></div>'+
+      '<label class="f" for="aStage">Where are you now?<select id="aStage"><option>Just starting (under 1K)</option><option selected>Growing (1K to 10K)</option><option>Established (10K to 100K)</option><option>Big account (100K+)</option></select></label>'+
+      '<label class="f" for="aBlock">What is the biggest thing in your way?<textarea id="aBlock" rows="3">I post for a few weeks, then fall off. No system.</textarea></label>'+
+      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="back1">Back</button><button class="solid" type="submit" style="flex:1">Next</button></div></form>';
+      chipGroup($('#goal'),true);
+      $('#back1').addEventListener('click',function(){applyStep(0)});
+      $('#a1').addEventListener('submit',function(e){e.preventDefault();applyStep(2)});
+    } else if(n===2){
+      b.innerHTML='<form id="a2"><span class="eyebrow">Step 3 of 3 / Fit</span><h2>Ready to invest?</h2><p>1:1 coaching starts at $1,500/month for 12 weeks.</p>'+
+      '<div class="chips" id="budget"><button type="button" class="chip" aria-pressed="false">Yes, ready now</button><button type="button" class="chip" aria-pressed="true">Yes, in 1 to 3 months</button><button type="button" class="chip" aria-pressed="false">Not yet</button></div>'+
+      '<label class="f" for="aMore">Anything else I should know? (optional)<textarea id="aMore" rows="2"></textarea></label>'+
+      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="back2">Back</button><button class="solid" type="submit" style="flex:1">Send application</button></div>'+
+      '<span class="fine">Mockup: nothing is sent.</span></form>';
+      chipGroup($('#budget'),false);
+      $('#back2').addEventListener('click',function(){applyStep(1)});
+      $('#a2').addEventListener('submit',function(e){e.preventDefault();applyStep(3)});
+    } else {
+      b.innerHTML='<div class="done"><div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><span class="eyebrow">Application received</span><h2>Thanks, '+(app.name||'friend')+'.</h2><p>I review applications every Monday. If it looks like a fit, you will get an email from me with a link to book an intro call.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: no application was sent.</span></div>';
+      $('[data-close]',b).addEventListener('click',hide);
+    }
+  }
+
+  // --- booking flow
+  var bk={};
+  var DAYS=[['Tue',11],['Wed',12],['Thu',13],['Mon',17],['Tue',18]];
+  var TIMES=['9:00 am','10:30 am','12:00 pm','2:00 pm','3:30 pm','5:00 pm'];
+  function bookStep(n){
+    var b=$('#bookBody');
+    if(n===0){
+      bk={d:2,t:null};
+      b.innerHTML='<div class="grab"></div><span class="eyebrow">One-time consultation / 60 min</span><h2 id="bookT">Pick a time.</h2><p>Times in Pacific (Vancouver). November 2026.</p>'+
+      '<div class="days" id="days">'+DAYS.map(function(d,i){return '<button type="button" class="day" aria-pressed="'+(i===bk.d)+'" data-i="'+i+'">'+d[0]+'<b>'+d[1]+'</b></button>'}).join('')+'</div>'+
+      '<div class="times" id="times"></div>'+
+      '<div class="sum"><span>60 min video call</span><b>$250 USD</b></div>'+
+      '<button class="solid" type="button" id="toPay" disabled style="opacity:.5">Continue</button>';
+      function renderTimes(){
+        $('#times').innerHTML=TIMES.map(function(t,i){var off=((i+bk.d)%4===1);return '<button type="button" class="time" '+(off?'disabled':'')+' aria-pressed="'+(bk.t===i)+'" data-i="'+i+'">'+t+'</button>'}).join('');
+        $$('#times .time').forEach(function(el){el.addEventListener('click',function(){bk.t=+el.dataset.i;renderTimes();var c=$('#toPay');c.disabled=false;c.style.opacity=1})});
+      }
+      $$('#days .day').forEach(function(el){el.addEventListener('click',function(){bk.d=+el.dataset.i;bk.t=null;$$('#days .day').forEach(function(o){o.setAttribute('aria-pressed',o===el)});var c=$('#toPay');c.disabled=true;c.style.opacity=.5;renderTimes()})});
+      renderTimes();
+      $('#toPay').addEventListener('click',function(){bookStep(1)});
+    } else if(n===1){
+      var d=DAYS[bk.d];
+      b.innerHTML='<div class="grab"></div><span class="eyebrow">Confirm and pay</span><h2>'+d[0]+', Nov '+d[1]+' at '+TIMES[bk.t]+'.</h2>'+
+      '<form id="pay"><label class="f" for="bName">Name<input id="bName" required autocomplete="name" value="Jordan Rivera"></label>'+
+      '<label class="f" for="bEmail">Email<input id="bEmail" type="email" required autocomplete="email" value="jordan@example.com"></label>'+
+      '<label class="f" for="bTopic">What do you want to cover?<textarea id="bTopic" rows="2">Audit my last 20 posts and help me plan next month.</textarea></label>'+
+      '<label class="f" for="bCard">Card (sample checkout)<input id="bCard" inputmode="numeric" value="4242 4242 4242 4242"></label>'+
+      '<div class="sum"><span>Total</span><b>$250 USD</b></div>'+
+      '<div style="display:flex;gap:8px"><button class="ghost" type="button" id="bBack">Back</button><button class="solid" type="submit" style="flex:1">Pay and book</button></div>'+
+      '<span class="fine">Mockup: no payment is taken. The real version would use Stripe through Cal.com or Calendly.</span></form>';
+      $('#bBack').addEventListener('click',function(){var keep=bk;bookStep(0);bk=keep});
+      $('#pay').addEventListener('submit',function(e){e.preventDefault();bk.name=$('#bName').value.split(' ')[0];bookStep(2)});
+    } else {
+      var d2=DAYS[bk.d];
+      b.innerHTML='<div class="grab"></div><div class="done"><div class="check"><svg viewBox="0 0 24 24"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg></div><span class="eyebrow">You are booked</span><h2>See you '+d2[0]+', Nov '+d2[1]+'.</h2><p>'+TIMES[bk.t]+' Pacific. A calendar invite and video link would land in your inbox.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: nothing was booked.</span></div>';
+      $('[data-close]',b).addEventListener('click',hide);
+    }
+  }
+
+  // --- copy + share
+  $('#copy').addEventListener('click',function(){
+    track('Email');var t=$('#addr').textContent;
+    var ok=function(){toast('Email copied')}, fail=function(){var r=document.createRange();r.selectNodeContents($('#addr'));var s=getSelection();s.removeAllRanges();s.addRange(r);toast('Selected. Copy it from here.')};
+    try{navigator.clipboard.writeText(t).then(ok,fail)}catch(e){fail()}
+  });
+  $('#share').addEventListener('click',function(){
+    var u='links.skoolofsocial.com';
+    try{navigator.clipboard.writeText('https://'+u).then(function(){toast('Link copied: <code>'+u+'</code>')},function(){toast('Your link: <code>'+u+'</code>')})}catch(e){toast('Your link: <code>'+u+'</code>')}
+  });
+})();
+</script>
