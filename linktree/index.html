@@ -127,6 +127,8 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--cobalt)}
 .steps i.on{background:var(--cobalt)}
 .fine{font-size:12px;color:var(--muted)}
 [hidden]{display:none!important}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.two .f{min-width:0}
 .tip{background:var(--white);border-radius:12px;padding:10px 12px}
 select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,var(--muted) 50%),linear-gradient(135deg,var(--muted) 50%,transparent 50%);background-position:calc(100% - 20px) 50%,calc(100% - 14px) 50%;background-size:6px 6px;background-repeat:no-repeat;padding-right:36px}
 .done a.solid{display:block}
@@ -272,7 +274,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
   var VID=(function(){try{var v=localStorage.getItem('sos-vid');if(!v){v=Math.random().toString(36).slice(2,10);localStorage.setItem('sos-vid',v)}return v}catch(e){return Math.random().toString(36).slice(2,10)}})();
   function send(d){if(!SHEET_URL)return;try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).catch(function(){})}catch(e){}}
   function logClick(ev){send({type:'click',event:ev,visitor:VID,ref:document.referrer||'',device:/Mobi/i.test(navigator.userAgent)?'Mobile':'Desktop'})}
-  function logApp(step,extra){var f={name:app.full,email:app.email,platform:app.platform,handle:app.handle,role:app.role,audience:app.size,goal:app.goal,blocker:app.block,timeline:app.time!=null?TIMELINE[app.time]:'',budget:app.inv!=null?INVEST[app.inv]:''};var d={type:'app',id:app.id,step:step,fields:f};for(var k in extra)d[k]=extra[k];send(d)}
+  function logApp(step,extra){var f={first:app.first,last:app.last,email:app.email,platform:app.platform,handle:app.handle,role:app.role,audience:app.size,goal:app.goal,blocker:app.block,timeline:app.time!=null?TIMELINE[app.time]:'',budget:app.inv!=null?INVEST[app.inv]:''};var d={type:'app',id:app.id,step:step,fields:f};for(var k in extra)d[k]=extra[k];send(d)}
   logClick('Page visit');
   function track(n){if(!n)return;logClick(n);taps[n]=(taps[n]||0)+1;try{localStorage.setItem('sos-taps',JSON.stringify(taps))}catch(e){}}
   function renderStats(){
@@ -340,13 +342,13 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
     if(n===0){
       app={id:VID+'-'+Date.now().toString(36)};
       b.innerHTML='<form id="a0"><span class="eyebrow">Step 1 of 4 / About you</span><h2 id="applyT">Work directly with Arturo.</h2><p>A few quick questions so we only book calls that make sense for you.</p>'+
-      '<label class="f" for="aName">Your name<input id="aName" required autocomplete="name"></label>'+
+      '<div class="two"><label class="f" for="aFirst">First name<input id="aFirst" required autocomplete="given-name"></label><label class="f" for="aLast">Last name<input id="aLast" required autocomplete="family-name"></label></div>'+
       '<label class="f" for="aEmail">Email<input id="aEmail" type="email" required autocomplete="email"></label>'+
       sel('aPlat','Main platform',['Instagram','TikTok','Facebook','YouTube','Other'])+
       '<label class="f" for="aPlatOther" id="aPlatOtherWrap" hidden>Which platform?<input id="aPlatOther" placeholder="e.g. LinkedIn, X, Twitch"></label>'+
       '<label class="f" for="aHandle">Main account (link or @handle)<input id="aHandle" required></label>'+nav(null)+'</form>';
       $('#aPlat').addEventListener('change',function(){var o=this.selectedOptions[0].text==='Other';$('#aPlatOtherWrap').hidden=!o;$('#aPlatOther').required=o});
-      wire('a0',function(){app.full=$('#aName').value;app.name=app.full.split(' ')[0];app.email=$('#aEmail').value;var pl=$('#aPlat').selectedOptions[0].text;app.platform=pl==='Other'?('Other: '+$('#aPlatOther').value):pl;app.handle=$('#aHandle').value;logApp(1,{status:'Started'});applyStep(1)});
+      wire('a0',function(){app.first=$('#aFirst').value.trim();app.last=$('#aLast').value.trim();app.full=app.first+' '+app.last;app.name=app.first;app.email=$('#aEmail').value;var pl=$('#aPlat').selectedOptions[0].text;app.platform=pl==='Other'?('Other: '+$('#aPlatOther').value):pl;app.handle=$('#aHandle').value;logApp(1,{status:'Started'});applyStep(1)});
     } else if(n===1){
       b.innerHTML='<form id="a1"><span class="eyebrow">Step 2 of 4 / Where you are</span><h2>Tell me about you.</h2>'+
       sel('aRole','Which best describes you?',['Creator or personal brand','Business owner','Agency or freelancer','Marketing or content team','Other'])+
