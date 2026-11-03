@@ -274,7 +274,9 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
   var VID=(function(){try{var v=localStorage.getItem('sos-vid');if(!v){v=Math.random().toString(36).slice(2,10);localStorage.setItem('sos-vid',v)}return v}catch(e){return Math.random().toString(36).slice(2,10)}})();
   function send(d){if(!SHEET_URL)return;try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).catch(function(){})}catch(e){}}
   function logClick(ev){send({type:'click',event:ev,visitor:VID,ref:document.referrer||'',device:/Mobi/i.test(navigator.userAgent)?'Mobile':'Desktop'})}
-  function logApp(step,extra){var f={first:app.first,last:app.last,email:app.email,platform:app.platform,handle:app.handle,role:app.role,audience:app.size,goal:app.goal,blocker:app.block,timeline:app.time!=null?TIMELINE[app.time]:'',budget:app.inv!=null?INVEST[app.inv]:''};var d={type:'app',id:app.id,step:step,fields:f};for(var k in extra)d[k]=extra[k];send(d)}
+  function logApp(step,extra){var f={first:app.first,last:app.last,email:app.email,platform:app.platform,handle:app.handle,role:app.role,audience:app.size,goal:app.goal,blocker:app.block,timeline:app.time!=null?TIMELINE[app.time]:'',budget:app.inv!=null?INVEST[app.inv]:''};var d={type:'app',id:app.id,step:step,fields:f,source:SOURCE};for(var k in extra)d[k]=extra[k];send(d)}
+  var SRC=(function(){try{var q=new URLSearchParams(location.search);return q.get('src')||q.get('utm_source')||q.get('utm_campaign')||''}catch(e){return ''}})();
+  var SOURCE='Link page'+(SRC?' / '+SRC:'');
   logClick('Page visit');
   function track(n){if(!n)return;logClick(n);taps[n]=(taps[n]||0)+1;try{localStorage.setItem('sos-taps',JSON.stringify(taps))}catch(e){}}
   function renderStats(){

@@ -19,7 +19,7 @@ var BUDGETS = ['Under $100', '$100 to $500', '$500 to $1,000', '$1,000 to $2,000
 
 var APP_HEADERS = [
   'Status', 'First name', 'Last name', 'Email', 'Platform', 'Account', 'Monthly budget', 'Start timeline',
-  'Role', 'Audience', 'Goal', 'Biggest blocker', 'Furthest step', 'Clicked "Pick a time"', 'Started', 'Last update', 'ID'
+  'Role', 'Audience', 'Goal', 'Biggest blocker', 'Furthest step', 'Clicked "Pick a time"', 'Started', 'Last update', 'ID', 'Source'
 ];
 var COL = {}; APP_HEADERS.forEach(function (h, i) { COL[h] = i; });
 var CLICK_HEADERS = ['Time', 'Event', 'Visitor ID', 'Device', 'Referrer'];
@@ -56,6 +56,7 @@ function upsertApp_(sh, d) {
   set('Platform', f.platform); set('Account', f.handle); set('Monthly budget', f.budget);
   set('Start timeline', f.timeline); set('Role', f.role); set('Audience', f.audience);
   set('Goal', f.goal); set('Biggest blocker', f.blocker);
+  set('Source', d.source);
   v[COL['Furthest step']] = Math.max(Number(cur[COL['Furthest step']]) || 0, Number(d.step) || 0) + ' of 4';
   v[COL['Clicked "Pick a time"']] = d.booked ? 'Yes' : (cur[COL['Clicked "Pick a time"']] || 'No');
   v[COL['Started']] = cur[COL['Started']] || now;
@@ -81,7 +82,7 @@ function header_(sh, headers, widths) {
 function setup_(ss) {
   if (!ss.getSheetByName('Applications')) {
     var a = ss.insertSheet('Applications');
-    header_(a, APP_HEADERS, [110, 120, 120, 220, 120, 160, 140, 130, 180, 110, 220, 320, 110, 140, 150, 150, 160]);
+    header_(a, APP_HEADERS, [110, 120, 120, 220, 120, 160, 140, 130, 180, 110, 220, 320, 110, 140, 150, 150, 160, 200]);
     a.getRange('A:A').setFontWeight('bold').setHorizontalAlignment('center');
     a.getRange('O:P').setNumberFormat('mmm d, yyyy h:mm am/pm');
     a.getRange('L:L').setWrap(true);
