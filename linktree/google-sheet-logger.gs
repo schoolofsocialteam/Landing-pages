@@ -1,12 +1,12 @@
 /**
  * School of Social link page -> Google Sheet logger.
  *
- * Setup (once):
- * 1. Open the "School of Social Leads" sheet.
- * 2. Extensions > Apps Script. Delete what's there, paste this whole file, Save.
- * 3. Pick "setupNow" in the function dropdown and click Run (approve access). This builds the tabs.
- * 4. Deploy > New deployment > type "Web app". Execute as: Me. Who has access: Anyone. Deploy.
- * 5. Copy the Web app URL (ends in /exec) and send it to Claude.
+ * Setup (once). The "School of Social CRM" sheet is already built, so no need to run setupNow.
+ * 1. Open the sheet. Extensions > Apps Script. Delete what's there, paste this whole file, Save.
+ * 2. Deploy > New deployment > type "Web app". Execute as: Me. Who has access: Anyone. Deploy.
+ * 3. Approve access when Google asks (Advanced > Go to project, since it's your own script).
+ * 4. Copy the Web app URL (ends in /exec) and send it to Claude.
+ * (setupNow only rebuilds missing tabs, e.g. on a fresh blank sheet.)
  *
  * Tabs:
  *   Dashboard     live totals, funnel and budget chart
