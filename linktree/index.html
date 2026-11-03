@@ -267,7 +267,14 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
   var BASE={"Work directly with Arturo":38,"Book a consultation":61,"Community":142,"Instagram":96,"TikTok":71,"YouTube":54,"Facebook":12,"Email":19,"Website":8};
   var taps={};
   try{taps=JSON.parse(localStorage.getItem('sos-taps')||'{}')||{}}catch(e){taps={}}
-  function track(n){if(!n)return;taps[n]=(taps[n]||0)+1;try{localStorage.setItem('sos-taps',JSON.stringify(taps))}catch(e){}}
+  // --- Google Sheet logging (paste the Apps Script web app URL below)
+  var SHEET_URL='';
+  var VID=(function(){try{var v=localStorage.getItem('sos-vid');if(!v){v=Math.random().toString(36).slice(2,10);localStorage.setItem('sos-vid',v)}return v}catch(e){return Math.random().toString(36).slice(2,10)}})();
+  function send(d){if(!SHEET_URL)return;try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).catch(function(){})}catch(e){}}
+  function logClick(ev){send({type:'click',event:ev,visitor:VID,ref:document.referrer||'',device:/Mobi/i.test(navigator.userAgent)?'Mobile':'Desktop'})}
+  function logApp(step,extra){var f={name:app.full,email:app.email,platform:app.platform,handle:app.handle,role:app.role,audience:app.size,goal:app.goal,blocker:app.block,timeline:app.time!=null?TIMELINE[app.time]:'',budget:app.inv!=null?INVEST[app.inv]:''};var d={type:'app',id:app.id,step:step,fields:f};for(var k in extra)d[k]=extra[k];send(d)}
+  logClick('Page visit');
+  function track(n){if(!n)return;logClick(n);taps[n]=(taps[n]||0)+1;try{localStorage.setItem('sos-taps',JSON.stringify(taps))}catch(e){}}
   function renderStats(){
     var rows=Object.keys(BASE).map(function(k){return [k,BASE[k]+(taps[k]||0),taps[k]||0]}).sort(function(a,b){return b[1]-a[1]});
     var max=rows[0][1];
@@ -331,7 +338,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
   function applyStep(n){
     steps(n);var b=$('#applyBody');
     if(n===0){
-      app={};
+      app={id:VID+'-'+Date.now().toString(36)};
       b.innerHTML='<form id="a0"><span class="eyebrow">Step 1 of 4 / About you</span><h2 id="applyT">Work directly with Arturo.</h2><p>A few quick questions so we only book calls that make sense for you.</p>'+
       '<label class="f" for="aName">Your name<input id="aName" required autocomplete="name"></label>'+
       '<label class="f" for="aEmail">Email<input id="aEmail" type="email" required autocomplete="email"></label>'+
@@ -339,23 +346,23 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
       '<label class="f" for="aPlatOther" id="aPlatOtherWrap" hidden>Which platform?<input id="aPlatOther" placeholder="e.g. LinkedIn, X, Twitch"></label>'+
       '<label class="f" for="aHandle">Main account (link or @handle)<input id="aHandle" required></label>'+nav(null)+'</form>';
       $('#aPlat').addEventListener('change',function(){var o=this.selectedOptions[0].text==='Other';$('#aPlatOtherWrap').hidden=!o;$('#aPlatOther').required=o});
-      wire('a0',function(){app.full=$('#aName').value;app.name=app.full.split(' ')[0];app.email=$('#aEmail').value;var pl=$('#aPlat').selectedOptions[0].text;app.platform=pl==='Other'?('Other: '+$('#aPlatOther').value):pl;app.handle=$('#aHandle').value;applyStep(1)});
+      wire('a0',function(){app.full=$('#aName').value;app.name=app.full.split(' ')[0];app.email=$('#aEmail').value;var pl=$('#aPlat').selectedOptions[0].text;app.platform=pl==='Other'?('Other: '+$('#aPlatOther').value):pl;app.handle=$('#aHandle').value;logApp(1,{status:'Started'});applyStep(1)});
     } else if(n===1){
       b.innerHTML='<form id="a1"><span class="eyebrow">Step 2 of 4 / Where you are</span><h2>Tell me about you.</h2>'+
       sel('aRole','Which best describes you?',['Creator or personal brand','Business owner','Agency or freelancer','Marketing or content team','Other'])+
       sel('aSize','Total audience across platforms',['Under 1K','1K to 10K','10K to 50K','50K to 100K','100K to 500K','500K+'])+nav(0)+'</form>';
-      wire('a1',function(){app.role=$('#aRole').selectedOptions[0].text;app.size=$('#aSize').selectedOptions[0].text;applyStep(2)});
+      wire('a1',function(){app.role=$('#aRole').selectedOptions[0].text;app.size=$('#aSize').selectedOptions[0].text;logApp(2);applyStep(2)});
     } else if(n===2){
       b.innerHTML='<form id="a2"><span class="eyebrow">Step 3 of 4 / The goal</span><h2>What do you want to fix?</h2>'+
       sel('aGoal','Main goal for the next 90 days',['Grow my audience','Get clients or leads from content','Post consistently','Build a content system for my team','Launch a channel from scratch'])+
       '<label class="f" for="aBlock">What is the biggest thing in your way?<textarea id="aBlock" rows="3" required></textarea></label>'+nav(1)+'</form>';
-      wire('a2',function(){app.goal=$('#aGoal').selectedOptions[0].text;app.block=$('#aBlock').value;applyStep(3)});
+      wire('a2',function(){app.goal=$('#aGoal').selectedOptions[0].text;app.block=$('#aBlock').value;logApp(3);applyStep(3)});
     } else if(n===3){
       b.innerHTML='<form id="a3"><span class="eyebrow">Step 4 of 4 / Fit</span><h2>Timing and investment.</h2>'+
       sel('aTime','When do you want to start?',TIMELINE)+
       sel('aInv','How much are you ready to invest per month in growing your brand on social?',INVEST)+
       nav(2).replace('data-back="2"','data-back="2"')+'</form>';
-      wire('a3',function(){app.inv=+$('#aInv').value;app.time=+$('#aTime').value;applyStep(app.inv>=4&&app.time<3?5:4)});
+      wire('a3',function(){app.inv=+$('#aInv').value;app.time=+$('#aTime').value;var q=app.inv>=4&&app.time<3;logApp(4,{status:q?'Qualified':'Unqualified'});applyStep(q?5:4)});
     } else if(n===4){
       b.innerHTML='<div class="done">'+CHECK+'<span class="eyebrow">Thanks, '+app.name+'</span><h2>Start with the community.</h2><p>Based on your answers, the best next step right now is the School of Social community. It is where I share the systems I use with 1:1 clients, and founding members get in at a special rate.</p><a class="solid" href="https://www.skool.com/school-of-social-7559/about" target="_blank" rel="noopener" id="toComm" style="text-align:center">See the community</a></div>';
       $('#toComm').addEventListener('click',function(){track('Community')});
@@ -363,7 +370,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
       var notes='Application\nRole: '+app.role+'\nAudience: '+app.size+'\nGoal: '+app.goal+'\nBlocker: '+app.block+'\nStart: '+TIMELINE[app.time]+'\nBudget/mo: '+INVEST[app.inv]+'\nPlatform: '+app.platform+'\nAccount: '+app.handle+(app.more?'\nMore: '+app.more:'');
       var url=DISC+'?name='+encodeURIComponent(app.full)+'&email='+encodeURIComponent(app.email)+'&notes='+encodeURIComponent(notes);
       b.innerHTML='<div class="done">'+CHECK+'<span class="eyebrow">You look like a great fit</span><h2>Book your discovery call.</h2><p>30 min, free. We go over your goals and see if 1:1 coaching makes sense. Your answers are already filled in.</p><a class="solid" id="callGo" target="_blank" rel="noopener" style="text-align:center">Pick a time</a></div>';
-      $('#callGo').href=url;
+      $('#callGo').href=url;$('#callGo').addEventListener('click',function(){logApp(4,{booked:true});logClick('Clicked Pick a time')});
     } else {
       b.innerHTML='<div class="done">'+CHECK+'<span class="eyebrow">Call booked</span><h2>Talk soon, '+app.name+'.</h2><p>'+app.when+' Pacific. A calendar invite and video link would land in your inbox.</p><button class="solid" type="button" data-close>Done</button><span class="fine">Mockup: nothing was booked.</span></div>';
       $('[data-close]',b).addEventListener('click',hide);
