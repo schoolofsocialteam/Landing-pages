@@ -270,7 +270,7 @@ select{appearance:none;background-image:linear-gradient(45deg,transparent 50%,va
   var taps={};
   try{taps=JSON.parse(localStorage.getItem('sos-taps')||'{}')||{}}catch(e){taps={}}
   // --- Google Sheet logging (paste the Apps Script web app URL below)
-  var SHEET_URL='';
+  var SHEET_URL='https://script.google.com/macros/s/AKfycbyzYeg77gUrO9MyyUtdcHRBvE0-I7Lewt32Qx3q7Vbijv_ZF2Hz5bAEo0Zeb-f4xiiT/exec';
   var VID=(function(){try{var v=localStorage.getItem('sos-vid');if(!v){v=Math.random().toString(36).slice(2,10);localStorage.setItem('sos-vid',v)}return v}catch(e){return Math.random().toString(36).slice(2,10)}})();
   function send(d){if(!SHEET_URL)return;try{fetch(SHEET_URL,{method:'POST',mode:'no-cors',keepalive:true,headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(d)}).catch(function(){})}catch(e){}}
   function logClick(ev){send({type:'click',event:ev,visitor:VID,ref:document.referrer||'',device:/Mobi/i.test(navigator.userAgent)?'Mobile':'Desktop'})}
