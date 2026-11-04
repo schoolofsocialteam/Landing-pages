@@ -7,7 +7,7 @@ import os, re, shutil, json
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, 'site')
-SITE = 'https://schoolofsocial-linkhub.vercel.app'
+SITE = 'https://schoolofsocial.co'
 
 PAGES = {
     'index.html': {
